@@ -14,6 +14,14 @@ async def lifespan(app: FastAPI):
     # Startup
     import logging
     logger = logging.getLogger(__name__)
+
+    # Create database tables
+    from app.database import engine, Base
+    from app.models import tenant, user, conversation, document  # noqa: F401 - import to register models
+    async with engine.begin() as conn:
+        await conn.run_sync(Base.metadata.create_all)
+    logger.info("Database tables created/verified")
+
     try:
         from app.services.rag_service import RAGService
         rag_service = RAGService()
