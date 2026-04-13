@@ -1,4 +1,5 @@
 import uuid
+import time
 
 from sqlalchemy import select, func
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -42,31 +43,42 @@ class ChatService:
         # Get conversation history
         chat_history = await self._get_chat_history(conversation.id)
 
-        # Run agent
+        # Run agent with retry for transient errors (503, 429)
         agent = create_agent(request.mode)
-        try:
-            result = agent.invoke({
-                "input": request.message,
-                "context": context,
-                "chat_history": chat_history,
-            })
-            ai_response = result.get("output", "I'm sorry, I couldn't process your request.")
-            # Gemini returns list of content blocks; extract text
-            if isinstance(ai_response, list):
-                parts = []
-                for part in ai_response:
-                    if isinstance(part, dict) and "text" in part:
-                        parts.append(part["text"])
-                    elif isinstance(part, str):
-                        parts.append(part)
-                ai_response = "".join(parts)
-        except Exception as e:
-            error_msg = str(e)
-            if "insufficient_quota" in error_msg or "429" in error_msg:
-                ai_response = "⚠️ The AI service is currently unavailable due to API quota limits. Please check your API key configuration. The calculators (tax, GST, TDS) still work without the AI service."
-            else:
-                ai_response = f"Sorry, an error occurred while processing your request: {error_msg}"
-            result = {"intermediate_steps": []}
+        result = None
+        ai_response = None
+        max_retries = 3
+        for attempt in range(max_retries):
+            try:
+                result = agent.invoke({
+                    "input": request.message,
+                    "context": context,
+                    "chat_history": chat_history,
+                })
+                ai_response = result.get("output", "I'm sorry, I couldn't process your request.")
+                # Gemini returns list of content blocks; extract text
+                if isinstance(ai_response, list):
+                    parts = []
+                    for part in ai_response:
+                        if isinstance(part, dict) and "text" in part:
+                            parts.append(part["text"])
+                        elif isinstance(part, str):
+                            parts.append(part)
+                    ai_response = "".join(parts)
+                break  # Success
+            except Exception as e:
+                error_msg = str(e)
+                is_retryable = "503" in error_msg or "UNAVAILABLE" in error_msg or "429" in error_msg or "RESOURCE_EXHAUSTED" in error_msg
+                if is_retryable and attempt < max_retries - 1:
+                    time.sleep(2 ** attempt * 5)  # 5s, 10s, 20s
+                    continue
+                if "insufficient_quota" in error_msg or "429" in error_msg or "RESOURCE_EXHAUSTED" in error_msg:
+                    ai_response = "⚠️ The AI service is temporarily rate-limited. Please wait a moment and try again. The calculators (tax, GST, TDS) still work without the AI service."
+                elif "503" in error_msg or "UNAVAILABLE" in error_msg:
+                    ai_response = "⚠️ The AI model is experiencing high demand. Please try again in a few seconds."
+                else:
+                    ai_response = f"Sorry, an error occurred while processing your request: {error_msg}"
+                result = {"intermediate_steps": []}
 
 
         sources = self._extract_sources(result.get("intermediate_steps", []))
