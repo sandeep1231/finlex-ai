@@ -3,9 +3,9 @@
 # ============================================
 
 # --- Web Framework ---
-fastapi==0.115.6
-uvicorn[standard]==0.34.0
-python-multipart==0.0.19
+fastapi>=0.115.6
+uvicorn[standard]>=0.34.0
+python-multipart>=0.0.19
 
 # --- Database ---
 sqlalchemy[asyncio]==2.0.36
@@ -44,8 +44,8 @@ httpx==0.28.1
 razorpay==1.4.2
 
 # --- Validation & Serialization ---
-pydantic==2.10.4
-pydantic-settings==2.7.1
+pydantic>=2.10.4
+pydantic-settings>=2.10.1
 email-validator==2.2.0
 
 # --- Security ---
