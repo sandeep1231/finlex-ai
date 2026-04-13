@@ -1,0 +1,279 @@
+{
+  "metadata": {
+    "source": "Income Tax Act / Budget 2025 updates",
+    "last_updated": "2026-04-12",
+    "financial_year": "FY 2025-26 (AY 2026-27)"
+  },
+  "tds_rates": [
+    {
+      "section": "192",
+      "nature": "Payment of salary",
+      "threshold": 250000,
+      "rate_individual_huf": "Slab Rates",
+      "rate_others": "Slab Rates",
+      "notes": "As per applicable income tax slab rates"
+    },
+    {
+      "section": "192A",
+      "nature": "Premature EPF withdrawal",
+      "threshold": 50000,
+      "rate_individual_huf": 10,
+      "rate_others": 10,
+      "notes": "If PAN not furnished, TDS at 20%"
+    },
+    {
+      "section": "193",
+      "nature": "Interest on securities (including listed debentures)",
+      "threshold": 10000,
+      "rate_individual_huf": 10,
+      "rate_others": 10
+    },
+    {
+      "section": "194",
+      "nature": "Dividend payment by domestic company",
+      "threshold": 10000,
+      "rate_individual_huf": 10,
+      "rate_others": 10
+    },
+    {
+      "section": "194A",
+      "nature": "Interest on deposits from banks/post offices",
+      "threshold": 50000,
+      "threshold_senior_citizen": 100000,
+      "rate_individual_huf": 10,
+      "rate_others": 10,
+      "notes": "Budget 2025: Senior citizen threshold increased from Rs.50,000 to Rs.1,00,000"
+    },
+    {
+      "section": "194A",
+      "nature": "Interest income other than securities",
+      "threshold": 10000,
+      "rate_individual_huf": 10,
+      "rate_others": 10
+    },
+    {
+      "section": "194B",
+      "nature": "Lottery/puzzle/game winnings (casual income)",
+      "threshold": 10000,
+      "rate_individual_huf": 30,
+      "rate_others": 30,
+      "notes": "Per single transaction"
+    },
+    {
+      "section": "194BA",
+      "nature": "Winnings from online games",
+      "threshold": 0,
+      "rate_individual_huf": 30,
+      "rate_others": 30,
+      "notes": "No threshold — TDS on net winnings"
+    },
+    {
+      "section": "194BB",
+      "nature": "Winnings from horse races",
+      "threshold": 10000,
+      "rate_individual_huf": 30,
+      "rate_others": 30,
+      "notes": "Per single transaction"
+    },
+    {
+      "section": "194C",
+      "nature": "Contractor/sub-contractor payment (single)",
+      "threshold": 30000,
+      "rate_individual_huf": 1,
+      "rate_others": 2,
+      "notes": "Aggregate threshold Rs.1,00,000 in a financial year"
+    },
+    {
+      "section": "194C",
+      "nature": "Contractor/sub-contractor payment (aggregate)",
+      "threshold": 100000,
+      "rate_individual_huf": 1,
+      "rate_others": 2
+    },
+    {
+      "section": "194D",
+      "nature": "Insurance commission (domestic company)",
+      "threshold": 20000,
+      "rate_individual_huf": null,
+      "rate_others": 10
+    },
+    {
+      "section": "194D",
+      "nature": "Insurance commission (non-domestic)",
+      "threshold": 20000,
+      "rate_individual_huf": 5,
+      "rate_others": null
+    },
+    {
+      "section": "194DA",
+      "nature": "Life insurance policy maturity",
+      "threshold": 100000,
+      "rate_individual_huf": 2,
+      "rate_others": 2
+    },
+    {
+      "section": "194EE",
+      "nature": "National Savings Scheme payment",
+      "threshold": 2500,
+      "rate_individual_huf": 10,
+      "rate_others": 10
+    },
+    {
+      "section": "194G",
+      "nature": "Commission from lottery ticket sale",
+      "threshold": 20000,
+      "rate_individual_huf": 2,
+      "rate_others": 2
+    },
+    {
+      "section": "194H",
+      "nature": "Commission or brokerage",
+      "threshold": 20000,
+      "rate_individual_huf": 2,
+      "rate_others": 2
+    },
+    {
+      "section": "194I",
+      "nature": "Rent — land, building, furniture",
+      "threshold": 600000,
+      "rate_individual_huf": 10,
+      "rate_others": 10,
+      "notes": "Budget 2025: Threshold increased from Rs.2.4L/year to Rs.6L/year (Rs.50,000/month)"
+    },
+    {
+      "section": "194I",
+      "nature": "Rent — plant and machinery",
+      "threshold": 600000,
+      "rate_individual_huf": 2,
+      "rate_others": 2
+    },
+    {
+      "section": "194IA",
+      "nature": "Transfer of immovable property (except agri land)",
+      "threshold": 5000000,
+      "rate_individual_huf": 1,
+      "rate_others": 1
+    },
+    {
+      "section": "194IB",
+      "nature": "Rent by individual/HUF not covered under 194I",
+      "threshold": 50000,
+      "rate_individual_huf": 2,
+      "rate_others": null,
+      "notes": "Per month threshold"
+    },
+    {
+      "section": "194IC",
+      "nature": "Joint Development Agreement payments",
+      "threshold": 0,
+      "rate_individual_huf": 10,
+      "rate_others": 10,
+      "notes": "No threshold limit"
+    },
+    {
+      "section": "194J",
+      "nature": "Professional/technical service fees",
+      "threshold": 50000,
+      "rate_individual_huf": 10,
+      "rate_others": 10,
+      "notes": "Covers CA, lawyers, doctors, engineers, etc."
+    },
+    {
+      "section": "194J",
+      "nature": "Royalty for cinematographic films",
+      "threshold": 50000,
+      "rate_individual_huf": 2,
+      "rate_others": 2
+    },
+    {
+      "section": "194K",
+      "nature": "Mutual fund dividend income",
+      "threshold": 10000,
+      "rate_individual_huf": 10,
+      "rate_others": 10
+    },
+    {
+      "section": "194LA",
+      "nature": "Compensation for immovable property acquisition",
+      "threshold": 500000,
+      "rate_individual_huf": 10,
+      "rate_others": 10
+    },
+    {
+      "section": "194M",
+      "nature": "Contract/commission/professional fees by individual/HUF",
+      "threshold": 5000000,
+      "rate_individual_huf": 2,
+      "rate_others": 2,
+      "notes": "Applicable when payer is individual/HUF not covered under 194C, 194H, 194J"
+    },
+    {
+      "section": "194N",
+      "nature": "Cash withdrawal (ITR filed)",
+      "threshold": 10000000,
+      "rate_individual_huf": 2,
+      "rate_others": 2
+    },
+    {
+      "section": "194N",
+      "nature": "Cash withdrawal (ITR not filed)",
+      "threshold": 2000000,
+      "rate_individual_huf": "2% then 5% after 1cr",
+      "rate_others": "2% then 5% after 1cr"
+    },
+    {
+      "section": "194O",
+      "nature": "E-commerce operator sale of goods/services",
+      "threshold": 500000,
+      "rate_individual_huf": 0.1,
+      "rate_others": 0.1
+    },
+    {
+      "section": "194Q",
+      "nature": "Purchase of goods",
+      "threshold": 5000000,
+      "rate_individual_huf": 0.1,
+      "rate_others": 0.1
+    },
+    {
+      "section": "194R",
+      "nature": "Perquisite provided",
+      "threshold": 20000,
+      "rate_individual_huf": 10,
+      "rate_others": 10
+    },
+    {
+      "section": "194S",
+      "nature": "Cryptocurrency/virtual digital asset payment",
+      "threshold_specified": 50000,
+      "threshold_others": 10000,
+      "rate_individual_huf": 1,
+      "rate_others": 1
+    },
+    {
+      "section": "194T",
+      "nature": "Payment to partners by firm (salary/remuneration/bonus/commission/interest)",
+      "threshold": 20000,
+      "rate_individual_huf": null,
+      "rate_others": 10,
+      "notes": "NEW from April 1, 2025. Not applicable to drawings and capital repayment."
+    },
+    {
+      "section": "206AA",
+      "nature": "Non-availability of PAN",
+      "threshold": 0,
+      "rate_individual_huf": "Higher of: 2x rate, 20%, or applicable rate",
+      "rate_others": "Higher of: 2x rate, 20%, or applicable rate"
+    }
+  ],
+  "tds_return_due_dates": {
+    "Q1_Apr_Jun": "July 31",
+    "Q2_Jul_Sep": "October 31",
+    "Q3_Oct_Dec": "January 31",
+    "Q4_Jan_Mar": "May 31"
+  },
+  "tds_payment_due_dates": {
+    "all_months_except_march": "7th of next month",
+    "march": "April 30"
+  }
+}

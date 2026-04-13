@@ -1,0 +1,182 @@
+{
+  "metadata": {
+    "source": "CBIC / 56th GST Council Meeting / Notification 09/2025-CTR",
+    "last_updated": "2026-04-12",
+    "effective_date": "2025-09-22",
+    "notes": "GST 2.0 reforms simplified tax slabs to primarily 5%, 18%, and 40%. Previous 12% and 28% slabs largely merged."
+  },
+  "gst_structure": {
+    "description": "Post GST 2.0 (effective Sep 22, 2025), the primary GST slabs are 0% (exempt), 5%, 18%, and 40%. Niche rates of 0.25%, 1.5%, and 3% continue for specific items.",
+    "components": {
+      "CGST": "Central GST - half of total GST rate",
+      "SGST": "State GST - half of total GST rate (intra-state)",
+      "IGST": "Integrated GST - full GST rate (inter-state)",
+      "UTGST": "Union Territory GST - half of total GST rate (UT)"
+    },
+    "tds_rate": 2,
+    "tcs_rate": 0.5
+  },
+  "rate_slabs": {
+    "nil_rated_0_percent": {
+      "categories": [
+        {
+          "name": "Fresh Produce",
+          "items": ["Fresh vegetables", "Fresh fruits", "Fresh nuts", "Fresh ginger and turmeric", "Tender coconut water (non-packaged)"]
+        },
+        {
+          "name": "Dairy & Eggs",
+          "items": ["Fresh/pasteurised/UHT milk", "Curd", "Lassi", "Buttermilk (non-packaged)", "Paneer/Chena", "Eggs (fresh/preserved/cooked)", "Non-packaged honey"]
+        },
+        {
+          "name": "Grains & Staples",
+          "items": ["Non-packaged cereals/flours", "Puffed/beaten/parched rice", "Pappad", "Bread", "Roti/Chapathi/Paratha"]
+        },
+        {
+          "name": "Healthcare",
+          "items": ["Medicines and drugs (Annexure I)", "Blood and components", "Contraceptives", "Hearing aids", "Sanitary towels/napkins/tampons", "Individual health and life insurance (NEW - from Sept 2025)"]
+        },
+        {
+          "name": "Education",
+          "items": ["Maps, charts, globes", "Pencils, sharpeners, crayons, pastels", "Exercise books, notebooks", "Erasers", "Printed books", "Newspapers"]
+        },
+        {
+          "name": "Water",
+          "items": ["Plain (non-aerated) water"]
+        }
+      ]
+    },
+    "five_percent": {
+      "rate": 5,
+      "key_categories": [
+        {
+          "name": "Processed Foods",
+          "items": ["Dried herbs/roots", "Dried fruits/nuts", "Spices", "Jams/jellies", "Ice cream", "Namkeens/Bhujia/Mixtures (NEW - reduced from 12%)", "Sweetmeats"]
+        },
+        {
+          "name": "Daily Essentials (NEW - reduced from 18%)",
+          "items": ["Hair oil", "Shampoo", "Toothpaste", "Toilet soap bar", "Toothbrushes", "Shaving cream"]
+        },
+        {
+          "name": "Dairy & Fats (NEW - reduced from 12%)",
+          "items": ["Butter", "Ghee", "Cheese", "Dairy spreads"]
+        },
+        {
+          "name": "Agriculture (NEW - reduced from 12%)",
+          "items": ["Tractor tyres and parts", "Tractors", "Bio-pesticides", "Drip irrigation systems", "Sprinklers", "Agricultural/horticultural machinery"]
+        },
+        {
+          "name": "Healthcare (NEW - reduced from 12%)",
+          "items": ["Thermometer", "Medical grade oxygen", "Diagnostic kits/reagents", "Glucometer/test strips", "Corrective spectacles"]
+        },
+        {
+          "name": "Baby Products (NEW - reduced from 12%)",
+          "items": ["Feeding bottles", "Baby napkins", "Clinical diapers"]
+        },
+        {
+          "name": "Pharmaceuticals",
+          "items": ["Insulin", "Drugs and vaccines", "ORS", "Medicaments (Ayurvedic/Unani/Allopathic)"]
+        },
+        {
+          "name": "Apparel",
+          "items": ["Clothing up to Rs.2,500 per piece", "Footwear up to Rs.2,500 per pair"]
+        },
+        {
+          "name": "Textiles",
+          "items": ["All yarns and fabrics (silk, wool, cotton, synthetic)"]
+        }
+      ]
+    },
+    "eighteen_percent": {
+      "rate": 18,
+      "key_categories": [
+        {
+          "name": "Vehicles (NEW - reduced from 28%)",
+          "items": ["Petrol/petrol hybrid cars (<=1200cc, <=4000mm)", "Diesel/diesel hybrid cars (<=1500cc, <=4000mm)", "Three wheelers", "Motorcycles (<=350cc)", "Motor vehicles for goods transport"]
+        },
+        {
+          "name": "Electronics (NEW - reduced from 28%)",
+          "items": ["Air conditioners", "Television (above 32\")", "Monitors/projectors", "Dish washing machines"]
+        },
+        {
+          "name": "Professional Services",
+          "items": ["Legal services", "Accounting/audit services", "IT services", "Consulting services", "Advertising"]
+        },
+        {
+          "name": "Financial Services",
+          "items": ["Banking services", "Stock broking", "Insurance (non-individual)"]
+        },
+        {
+          "name": "Construction",
+          "items": ["Cement", "Iron/steel products", "Construction services"]
+        },
+        {
+          "name": "Food (Processed)",
+          "items": ["Restaurants (with ITC)", "Outdoor catering"]
+        },
+        {
+          "name": "Coal & Mining (NEW - increased from 5%)",
+          "items": ["Coal", "Lignite", "Peat"]
+        },
+        {
+          "name": "Paper (NEW - increased from 12%)",
+          "items": ["Dissolving-grade chemical wood pulp", "Various papers/paperboards (except exercise book paper)"]
+        },
+        {
+          "name": "Textiles (NEW - increased from 12%)",
+          "items": ["Apparel/Made-ups above Rs.2,500 per piece", "Quilted products above Rs.2,500 per piece"]
+        }
+      ]
+    },
+    "forty_percent": {
+      "rate": 40,
+      "description": "NEW highest slab introduced under GST 2.0 for sin goods and luxury items",
+      "categories": [
+        {
+          "name": "Sin Goods",
+          "items": ["Tobacco/pan masala (future notification)", "Aerated waters", "Caffeinated beverages", "Carbonated fruit drinks", "Other non-alcoholic beverages"]
+        },
+        {
+          "name": "Luxury Vehicles",
+          "items": ["Motor cars (beyond small-car thresholds)", "Larger hybrids", "Motorcycles exceeding 350cc"]
+        },
+        {
+          "name": "Luxury Items",
+          "items": ["Aircraft for personal use", "Yachts and pleasure vessels", "Revolvers and pistols"]
+        },
+        {
+          "name": "Gambling & Entertainment",
+          "items": ["Casino admission", "Race clubs", "Sporting events (IPL etc.)", "Betting/gambling/lottery", "Online money gaming"]
+        }
+      ]
+    },
+    "niche_rates": {
+      "three_percent": {
+        "items": ["Gold/silver jewellery", "Precious metal articles", "Coins", "Platinum"]
+      },
+      "zero_point_25_percent": {
+        "items": ["Rough/sawn diamonds", "Precious stones (non-diamond)", "Semi-precious stones", "Synthetic diamonds"]
+      },
+      "one_point_5_percent": {
+        "items": ["Job work on diamonds"]
+      },
+      "twenty_eight_percent": {
+        "items": ["Pan masala", "Tobacco products (unmanufactured/manufactured)", "Cigars/cigarettes", "Biris"]
+      }
+    }
+  },
+  "composition_scheme": {
+    "turnover_limit": 15000000,
+    "rates": {
+      "manufacturers": 1,
+      "restaurants": 5,
+      "other_suppliers": 1,
+      "service_providers": 6
+    },
+    "note": "Composition dealers cannot claim ITC and must pay tax at these flat rates on turnover"
+  },
+  "registration_thresholds": {
+    "goods": {"general": 4000000, "special_category_states": 2000000},
+    "services": {"all_states": 2000000},
+    "mandatory_regardless": ["Inter-state supply", "E-commerce operators", "Casual taxable person"]
+  }
+}

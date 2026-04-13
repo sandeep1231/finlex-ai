@@ -1,0 +1,142 @@
+{
+  "metadata": {
+    "source": "Indian regulatory compliance calendar",
+    "last_updated": "2026-04-12",
+    "financial_year": "FY 2026-27 (April 2026 - March 2027)"
+  },
+  "income_tax_compliance": {
+    "advance_tax": [
+      {"installment": "1st", "due_date": "June 15", "cumulative_percent": 15},
+      {"installment": "2nd", "due_date": "September 15", "cumulative_percent": 45},
+      {"installment": "3rd", "due_date": "December 15", "cumulative_percent": 75},
+      {"installment": "4th", "due_date": "March 15", "cumulative_percent": 100}
+    ],
+    "itr_due_dates": {
+      "individual_no_audit": {"due_date": "July 31", "form": "ITR-1/ITR-2/ITR-3"},
+      "business_audit_required": {"due_date": "October 31", "form": "ITR-3/ITR-5/ITR-6"},
+      "transfer_pricing_report": {"due_date": "November 30", "form": "ITR-6"},
+      "belated_return": {"due_date": "December 31", "penalty": "Rs.5,000 (Rs.1,000 if income < Rs.5L)"},
+      "revised_return": {"due_date": "December 31"}
+    },
+    "tax_audit": {
+      "section": "44AB",
+      "due_date": "September 30",
+      "threshold_business": 10000000,
+      "threshold_profession": 5000000,
+      "threshold_presumptive_opted_out": 0
+    },
+    "tds_return_due_dates": {
+      "Q1_Apr_Jun": "July 31",
+      "Q2_Jul_Sep": "October 31",
+      "Q3_Oct_Dec": "January 31",
+      "Q4_Jan_Mar": "May 31"
+    },
+    "tds_payment": {
+      "monthly": "7th of the following month",
+      "march": "April 30"
+    },
+    "form_16_issuance": {"due_date": "June 15"},
+    "form_16A_issuance": {"due_date": "15 days from TDS return due date"}
+  },
+  "gst_compliance": {
+    "regular_returns": {
+      "GSTR_1": {
+        "description": "Outward supplies",
+        "frequency": "Monthly (turnover > Rs.5 Cr) / Quarterly (QRMP scheme)",
+        "monthly_due": "11th of next month",
+        "quarterly_due": "13th of month following quarter"
+      },
+      "GSTR_3B": {
+        "description": "Summary return with tax payment",
+        "frequency": "Monthly / Quarterly (QRMP)",
+        "monthly_due": "20th of next month",
+        "quarterly_due": "22nd/24th of month following quarter (state-wise)"
+      },
+      "GSTR_9": {
+        "description": "Annual return",
+        "due_date": "December 31",
+        "applicable": "Turnover > Rs.2 Cr"
+      },
+      "GSTR_9C": {
+        "description": "Reconciliation statement (self-certified)",
+        "due_date": "December 31",
+        "applicable": "Turnover > Rs.5 Cr"
+      }
+    },
+    "composition_scheme": {
+      "CMP_08": {
+        "description": "Quarterly statement",
+        "due_date": "18th of month following quarter"
+      },
+      "GSTR_4": {
+        "description": "Annual return for composition dealers",
+        "due_date": "April 30"
+      }
+    },
+    "other_gst_returns": {
+      "GSTR_7": {"description": "TDS return", "due_date": "10th of next month"},
+      "GSTR_8": {"description": "TCS return by e-commerce operators", "due_date": "10th of next month"}
+    }
+  },
+  "companies_act_compliance": {
+    "annual_filings": {
+      "AGM": {
+        "description": "Annual General Meeting",
+        "due_date": "Within 6 months from end of financial year (September 30)",
+        "applicable": "All companies"
+      },
+      "AOC_4": {
+        "description": "Filing of financial statements",
+        "due_date": "30 days from AGM",
+        "applicable": "All companies"
+      },
+      "MGT_7": {
+        "description": "Annual return",
+        "due_date": "60 days from AGM",
+        "applicable": "All companies"
+      }
+    },
+    "board_meetings": {
+      "minimum": "4 per year",
+      "gap": "Not more than 120 days between two meetings",
+      "first_meeting": "Within 30 days of incorporation"
+    },
+    "director_kyc": {
+      "form": "DIR-3 KYC",
+      "due_date": "September 30 every year",
+      "applicable": "All directors with DIN"
+    },
+    "auditor_appointment": {
+      "form": "ADT-1",
+      "due_date": "15 days from AGM",
+      "tenure": "5 years"
+    }
+  },
+  "other_compliance": {
+    "epf": {
+      "payment_due": "15th of next month",
+      "return_form": "ECR",
+      "return_due": "15th of next month",
+      "contribution_rate_employer": 12,
+      "contribution_rate_employee": 12,
+      "threshold_employees": 20
+    },
+    "esi": {
+      "payment_due": "15th of next month",
+      "contribution_rate_employer": 3.25,
+      "contribution_rate_employee": 0.75,
+      "salary_threshold": 21000
+    },
+    "professional_tax": {
+      "description": "State-level tax on profession/employment",
+      "max_amount": 2500,
+      "frequency": "Monthly",
+      "note": "Varies by state — Maharashtra, Karnataka, West Bengal, etc."
+    },
+    "msme_form_1": {
+      "description": "Half-yearly return for delayed payments to MSMEs",
+      "due_dates": ["October 31 (Apr-Sep)", "April 30 (Oct-Mar)"],
+      "applicable": "Companies with outstanding payments to MSMEs > 45 days"
+    }
+  }
+}

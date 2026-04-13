@@ -1,0 +1,150 @@
+{
+  "metadata": {
+    "source": "Indian legal framework - key statutes and compliance requirements",
+    "last_updated": "2026-04-12",
+    "jurisdiction": "India"
+  },
+  "contract_types": {
+    "service_agreement": {
+      "name": "Service Agreement",
+      "applicable_law": "Indian Contract Act, 1872",
+      "key_clauses": [
+        "Scope of Services",
+        "Term and Termination",
+        "Payment Terms and GST",
+        "Confidentiality",
+        "Intellectual Property",
+        "Indemnification",
+        "Limitation of Liability",
+        "Dispute Resolution (Arbitration under Arbitration and Conciliation Act, 1996)",
+        "Governing Law (Indian law, specific High Court jurisdiction)",
+        "Force Majeure",
+        "Non-Solicitation"
+      ],
+      "stamp_duty": "Varies by state",
+      "gst_applicable": true,
+      "gst_rate": 18
+    },
+    "employment_agreement": {
+      "name": "Employment Agreement",
+      "applicable_laws": ["Indian Contract Act, 1872", "Industrial Disputes Act, 1947", "Shops and Establishment Act (state-specific)", "Payment of Gratuity Act, 1972", "EPF & MP Act, 1952", "ESI Act, 1948"],
+      "key_clauses": [
+        "Designation and Duties",
+        "Compensation and Benefits (CTC breakup)",
+        "Probation Period",
+        "Working Hours and Leave Policy",
+        "Confidentiality and Non-Disclosure",
+        "Non-Compete (limited enforceability in India)",
+        "Intellectual Property Assignment",
+        "Notice Period",
+        "Termination Grounds",
+        "Gratuity",
+        "PF and ESI",
+        "TDS obligations under Section 192"
+      ]
+    },
+    "rental_agreement": {
+      "name": "Rental/Lease Agreement",
+      "applicable_laws": ["Transfer of Property Act, 1882", "Rent Control Acts (state-specific)", "Registration Act, 1908"],
+      "key_clauses": [
+        "Premises Description",
+        "Rent Amount and Escalation Clause",
+        "Security Deposit",
+        "Lock-in Period",
+        "Maintenance Responsibilities",
+        "Subletting Restrictions",
+        "Termination and Notice Period",
+        "Registration (mandatory if term > 11 months)",
+        "TDS on Rent (Section 194I/194IB)"
+      ],
+      "registration": "Mandatory for leases > 11 months",
+      "tds_applicable": true,
+      "tds_section": "194I / 194IB"
+    },
+    "partnership_deed": {
+      "name": "Partnership Deed",
+      "applicable_law": "Indian Partnership Act, 1932",
+      "key_clauses": [
+        "Names and Addresses of Partners",
+        "Nature of Business",
+        "Capital Contribution",
+        "Profit/Loss Sharing Ratio",
+        "Partner Remuneration (Section 40(b) limits)",
+        "Interest on Capital (max 12%)",
+        "Drawing Rights",
+        "Admission/Retirement/Death of Partner",
+        "Dissolution Procedure",
+        "Arbitration Clause",
+        "TDS on Partner Payments (NEW: Section 194T from FY 2025-26)"
+      ]
+    },
+    "client_engagement_letter": {
+      "name": "Client Engagement Letter (CA/Lawyer)",
+      "applicable_bodies": ["ICAI (Chartered Accountants)", "Bar Council of India (Advocates)"],
+      "key_clauses": [
+        "Scope of Engagement",
+        "Fees and Billing Terms",
+        "Timeline for Deliverables",
+        "Client Responsibilities (document submission)",
+        "Confidentiality",
+        "Limitation of Liability",
+        "Conflict of Interest Declaration",
+        "Termination",
+        "Professional Standards Compliance",
+        "Independence (for audit engagements)"
+      ]
+    },
+    "non_disclosure_agreement": {
+      "name": "Non-Disclosure Agreement (NDA)",
+      "applicable_law": "Indian Contract Act, 1872",
+      "key_clauses": [
+        "Definition of Confidential Information",
+        "Obligations of Receiving Party",
+        "Exclusions from Confidentiality",
+        "Term of Confidentiality",
+        "Return/Destruction of Information",
+        "Remedies for Breach (including injunctive relief)",
+        "Governing Law and Jurisdiction",
+        "Permitted Disclosures"
+      ]
+    },
+    "sale_deed": {
+      "name": "Sale Deed (Immovable Property)",
+      "applicable_laws": ["Transfer of Property Act, 1882", "Registration Act, 1908", "Indian Stamp Act, 1899 (state amendments)"],
+      "key_clauses": [
+        "Property Description and Schedule",
+        "Sale Consideration",
+        "Payment Terms",
+        "Title Verification",
+        "Encumbrance Certificate",
+        "Possession Date",
+        "Title Warranty",
+        "Indemnification",
+        "TDS under Section 194IA",
+        "Capital Gains Tax implications"
+      ],
+      "mandatory_registration": true,
+      "tds_section": "194IA",
+      "tds_threshold": 5000000
+    }
+  },
+  "document_templates": {
+    "legal_notice": {
+      "structure": ["Sender details", "Addressee details", "Subject", "Facts/Background", "Legal grounds", "Demand/Relief sought", "Timeline for compliance", "Consequence of non-compliance"],
+      "applicable_law": "Section 80 CPC (for suits), specific statute provisions"
+    },
+    "board_resolution": {
+      "structure": ["Company name and CIN", "Date and venue", "Directors present", "Quorum confirmation", "Resolution text", "Voting record", "Chairman signature"],
+      "applicable_law": "Companies Act, 2013 (Section 179)"
+    },
+    "power_of_attorney": {
+      "types": ["General Power of Attorney", "Special Power of Attorney"],
+      "applicable_law": "Power of Attorney Act, 1882",
+      "registration": "Required for immovable property transactions"
+    },
+    "affidavit": {
+      "structure": ["Deponent details", "Verification clause", "Statement of facts", "Oath/affirmation", "Notary attestation"],
+      "applicable_law": "Indian Evidence Act, 1872 (now Bharatiya Sakshya Adhiniyam, 2023)"
+    }
+  }
+}

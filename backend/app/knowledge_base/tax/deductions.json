@@ -1,0 +1,144 @@
+{
+  "metadata": {
+    "source": "Income Tax Act, 1961 / ClearTax",
+    "last_updated": "2026-04-12",
+    "financial_year": "FY 2025-26",
+    "notes": "Deductions available only under Old Tax Regime unless specifically mentioned"
+  },
+  "chapter_vi_a_deductions": {
+    "section_80C": {
+      "max_limit": 150000,
+      "available_new_regime": false,
+      "available_old_regime": true,
+      "eligible_persons": ["Individual", "HUF"],
+      "eligible_investments": [
+        {"name": "Life Insurance Premium", "details": "Premium payment on life insurance policies"},
+        {"name": "Public Provident Fund (PPF)", "details": "Deposits into PPF account, interest rate 7.1% (as of 2025), 15-year lock-in"},
+        {"name": "Employee Provident Fund (EPF)", "details": "Employee's contribution to EPF"},
+        {"name": "ELSS Mutual Funds", "details": "Equity Linked Savings Scheme, 3-year lock-in, average returns 12-15%"},
+        {"name": "National Savings Certificate (NSC)", "details": "5-year certificate, interest rate 7.7%"},
+        {"name": "Sukanya Samriddhi Yojana (SSY)", "details": "For girl child, interest rate 8.2%, lock-in till age 21"},
+        {"name": "5-Year Tax-Saving Fixed Deposit", "details": "Bank FD with 5-year lock-in"},
+        {"name": "Senior Citizen Savings Scheme (SCSS)", "details": "For 60+ years, interest rate 8.2%, 5-year tenure"},
+        {"name": "Home Loan Principal Repayment", "details": "Principal portion of home loan EMI"},
+        {"name": "Stamp Duty & Registration Charges", "details": "On purchase of house property"},
+        {"name": "Tuition Fees", "details": "For up to 2 children, full-time education in India"},
+        {"name": "ULIP", "details": "Unit Linked Insurance Plan"},
+        {"name": "National Pension System (NPS)", "details": "Under 80CCD(1), within 80C overall limit"}
+      ]
+    },
+    "section_80CCC": {
+      "max_limit": 150000,
+      "available_new_regime": false,
+      "details": "Pension fund contributions (within overall 80C limit)"
+    },
+    "section_80CCD_1": {
+      "max_limit": 150000,
+      "available_new_regime": false,
+      "details": "Employee NPS contribution (10% of salary for employed, 20% of gross income for self-employed) — within overall 80C limit"
+    },
+    "section_80CCD_1B": {
+      "max_limit": 50000,
+      "available_new_regime": false,
+      "details": "Additional NPS contribution — over and above the 80C limit of Rs.1.5L"
+    },
+    "section_80CCD_2": {
+      "max_limit": "14% of salary (central govt) / 10% of salary (others)",
+      "available_new_regime": true,
+      "details": "Employer NPS contribution — allowed in BOTH old and new regime"
+    },
+    "section_80CCE": {
+      "max_limit": 150000,
+      "details": "Combined limit for 80C + 80CCC + 80CCD(1)"
+    },
+    "section_80D": {
+      "available_new_regime": false,
+      "available_old_regime": true,
+      "limits": {
+        "self_spouse_children": {
+          "below_60": 25000,
+          "senior_citizen_60_plus": 50000
+        },
+        "parents": {
+          "below_60": 25000,
+          "senior_citizen_60_plus": 50000
+        },
+        "preventive_health_checkup": 5000,
+        "max_total": 100000
+      },
+      "details": "Medical insurance premium + preventive health checkup"
+    },
+    "section_80DD": {
+      "max_limit_normal_disability": 75000,
+      "max_limit_severe_disability": 125000,
+      "available_new_regime": false,
+      "details": "Maintenance/medical treatment of disabled dependent"
+    },
+    "section_80E": {
+      "max_limit": "No upper limit",
+      "available_new_regime": false,
+      "duration": "Max 8 years from year of starting repayment",
+      "details": "Interest on education loan for higher education"
+    },
+    "section_80EEA": {
+      "max_limit": 150000,
+      "available_new_regime": false,
+      "details": "Interest on home loan for first-time buyer (stamp value up to Rs.45 lakh, loan sanctioned between 01/04/2019 to 31/03/2022)"
+    },
+    "section_80G": {
+      "available_new_regime": false,
+      "details": "Donations to specified funds/charitable institutions",
+      "categories": {
+        "100_percent_without_limit": ["PM National Relief Fund", "National Defence Fund", "PM CARES Fund"],
+        "50_percent_without_limit": ["PM Drought Relief Fund", "National Children's Fund"],
+        "100_percent_with_10_percent_limit": ["Government/approved local authority for family planning"],
+        "50_percent_with_10_percent_limit": ["Any approved charitable institution/NGO"]
+      }
+    },
+    "section_80GG": {
+      "max_limit": 60000,
+      "available_new_regime": false,
+      "details": "Rent paid when no HRA received. Least of: Rs.5000/month, 25% of adjusted total income, or rent paid minus 10% of adjusted total income"
+    },
+    "section_80TTA": {
+      "max_limit": 10000,
+      "available_new_regime": false,
+      "details": "Interest on savings bank account (for non-senior citizens)"
+    },
+    "section_80TTB": {
+      "max_limit": 50000,
+      "available_new_regime": false,
+      "details": "Interest on deposits for senior citizens (60+)"
+    },
+    "section_80U": {
+      "max_limit_normal": 75000,
+      "max_limit_severe": 125000,
+      "available_new_regime": false,
+      "details": "Person with disability (self)"
+    }
+  },
+  "other_exemptions": {
+    "HRA": {
+      "section": "10(13A)",
+      "available_new_regime": false,
+      "calculation": "Least of: Actual HRA received, Rent paid minus 10% of salary, 50% of salary (metro) or 40% of salary (non-metro)"
+    },
+    "LTA": {
+      "section": "10(5)",
+      "available_new_regime": false,
+      "details": "Leave Travel Allowance — actual travel expenses, twice in a block of 4 years"
+    },
+    "home_loan_interest_self_occupied": {
+      "section": "24(b)",
+      "max_limit": 200000,
+      "available_new_regime": false,
+      "details": "Interest on home loan for self-occupied property"
+    },
+    "home_loan_interest_let_out": {
+      "section": "24(b)",
+      "max_limit": "No upper limit",
+      "available_new_regime": false,
+      "details": "Interest on home loan for let-out property (no limit but loss from house property set-off limited to Rs.2L against other income)"
+    }
+  }
+}

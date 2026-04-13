@@ -1,0 +1,98 @@
+{
+  "metadata": {
+    "source": "Income Tax Act, 1961 / Income Tax Act, 2025 (effective from April 1, 2026)",
+    "last_updated": "2026-04-12",
+    "notes": "Budget 2026 confirmed no changes to tax slabs for FY 2026-27. Income Tax Act 2025 takes effect from April 1, 2026 but FY 2025-26 provisions under 1961 Act apply for AY 2026-27."
+  },
+  "financial_years": {
+    "FY_2025_26": {
+      "assessment_year": "AY 2026-27",
+      "new_regime": {
+        "is_default": true,
+        "section": "115BAC",
+        "standard_deduction": 75000,
+        "rebate_section": "87A",
+        "rebate_limit_income": 1200000,
+        "rebate_amount": 60000,
+        "effective_tax_free_salary": 1275000,
+        "slabs": [
+          {"min": 0, "max": 400000, "rate": 0},
+          {"min": 400001, "max": 800000, "rate": 5},
+          {"min": 800001, "max": 1200000, "rate": 10},
+          {"min": 1200001, "max": 1600000, "rate": 15},
+          {"min": 1600001, "max": 2000000, "rate": 20},
+          {"min": 2000001, "max": 2400000, "rate": 25},
+          {"min": 2400001, "max": null, "rate": 30}
+        ],
+        "allowed_deductions": [
+          "Standard Deduction (Rs. 75,000)",
+          "Employer NPS Contribution (Sec 80CCD(2))",
+          "Agniveer Corpus Fund (Sec 80CCH)"
+        ],
+        "disallowed_deductions": [
+          "Section 80C", "Section 80D", "HRA Exemption",
+          "Home Loan Interest (Self-occupied)", "LTA",
+          "Section 80E", "Section 80G", "Section 80TTA"
+        ]
+      },
+      "old_regime": {
+        "is_default": false,
+        "standard_deduction": 50000,
+        "rebate_section": "87A",
+        "rebate_limit_income": 500000,
+        "rebate_amount": 12500,
+        "slabs": {
+          "individual_below_60": [
+            {"min": 0, "max": 250000, "rate": 0},
+            {"min": 250001, "max": 500000, "rate": 5},
+            {"min": 500001, "max": 1000000, "rate": 20},
+            {"min": 1000001, "max": null, "rate": 30}
+          ],
+          "senior_citizen_60_to_80": [
+            {"min": 0, "max": 300000, "rate": 0},
+            {"min": 300001, "max": 500000, "rate": 5},
+            {"min": 500001, "max": 1000000, "rate": 20},
+            {"min": 1000001, "max": null, "rate": 30}
+          ],
+          "super_senior_citizen_above_80": [
+            {"min": 0, "max": 500000, "rate": 0},
+            {"min": 500001, "max": 1000000, "rate": 20},
+            {"min": 1000001, "max": null, "rate": 30}
+          ]
+        }
+      },
+      "surcharge": {
+        "new_regime": [
+          {"min": 0, "max": 5000000, "rate": 0},
+          {"min": 5000001, "max": 10000000, "rate": 10},
+          {"min": 10000001, "max": 20000000, "rate": 15},
+          {"min": 20000001, "max": 50000000, "rate": 25},
+          {"min": 50000001, "max": null, "rate": 25}
+        ],
+        "old_regime": [
+          {"min": 0, "max": 5000000, "rate": 0},
+          {"min": 5000001, "max": 10000000, "rate": 10},
+          {"min": 10000001, "max": 20000000, "rate": 15},
+          {"min": 20000001, "max": 50000000, "rate": 25},
+          {"min": 50000001, "max": null, "rate": 37}
+        ]
+      },
+      "cess": {
+        "health_education_cess": 4,
+        "description": "4% Health & Education Cess on total tax + surcharge"
+      },
+      "special_rates": {
+        "short_term_capital_gains_111A": 20,
+        "long_term_capital_gains": 12.5,
+        "lottery_game_show_winnings": 30,
+        "crypto_virtual_digital_assets": 30
+      }
+    },
+    "FY_2026_27": {
+      "assessment_year": "AY 2027-28",
+      "notes": "Budget 2026 confirmed no changes to tax slabs. Same rates as FY 2025-26 apply. Income Tax Act 2025 provisions apply from this year.",
+      "new_regime_changes": "None — same slabs as FY 2025-26",
+      "old_regime_changes": "None — same slabs as FY 2025-26"
+    }
+  }
+}

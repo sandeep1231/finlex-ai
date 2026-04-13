@@ -1,0 +1,64 @@
+databases:
+  - name: finlex-db
+    plan: free
+    databaseName: finlex_db
+    user: finlex
+
+services:
+  # Backend API
+  - type: web
+    name: finlex-api
+    runtime: python
+    plan: free
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: DEBUG
+        value: "false"
+      - key: DATABASE_URL
+        fromDatabase:
+          name: finlex-db
+          property: connectionString
+      - key: LLM_PROVIDER
+        value: gemini
+      - key: GOOGLE_API_KEY
+        sync: false
+      - key: GOOGLE_MODEL
+        value: models/gemini-2.5-flash
+      - key: EMBEDDING_MODEL
+        value: models/gemini-embedding-001
+      - key: CLERK_SECRET_KEY
+        sync: false
+      - key: CLERK_PUBLISHABLE_KEY
+        sync: false
+      - key: CLERK_JWT_ISSUER
+        sync: false
+      - key: CLERK_JWKS_URL
+        sync: false
+      - key: CORS_ORIGINS
+        sync: false
+      - key: PYTHON_VERSION
+        value: "3.12.10"
+
+  # Frontend
+  - type: web
+    name: finlex-frontend
+    runtime: node
+    plan: free
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NEXT_PUBLIC_API_URL
+        sync: false
+      - key: NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
+        sync: false
+      - key: CLERK_SECRET_KEY
+        sync: false
+      - key: NEXT_PUBLIC_APP_NAME
+        value: FinLex AI
+      - key: NODE_VERSION
+        value: "22"
