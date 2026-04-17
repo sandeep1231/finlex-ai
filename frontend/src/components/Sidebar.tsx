@@ -1,6 +1,7 @@
 'use client';
 
-import { Conversation } from '@/lib/api';
+import { useState, useRef } from 'react';
+import { Conversation, api } from '@/lib/api';
 import {
   MessageSquarePlus,
   MessageSquare,
@@ -9,6 +10,10 @@ import {
   Calculator,
   FileText,
   Upload,
+  File,
+  Loader2,
+  CheckCircle,
+  X,
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -17,6 +22,12 @@ interface SidebarProps {
   onNewChat: () => void;
   onSelect: (id: string) => void;
   onDelete: (id: string) => void;
+}
+
+interface UploadedDoc {
+  id: string;
+  filename: string;
+  category: string;
 }
 
 const MODE_ICONS: Record<string, typeof Scale> = {
@@ -32,6 +43,50 @@ export default function Sidebar({
   onSelect,
   onDelete,
 }: SidebarProps) {
+  const [uploading, setUploading] = useState(false);
+  const [uploadStatus, setUploadStatus] = useState<string | null>(null);
+  const [documents, setDocuments] = useState<UploadedDoc[]>([]);
+  const [showDocs, setShowDocs] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  async function handleFileUpload(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setUploading(true);
+    setUploadStatus(null);
+
+    try {
+      const result = await api.uploadDocument(file, 'general');
+      setUploadStatus(`✓ ${file.name} uploaded`);
+      setDocuments(prev => [...prev, { id: result.id, filename: file.name, category: 'general' }]);
+      setTimeout(() => setUploadStatus(null), 3000);
+    } catch (err: any) {
+      setUploadStatus(`✗ ${err.message || 'Upload failed'}`);
+      setTimeout(() => setUploadStatus(null), 5000);
+    } finally {
+      setUploading(false);
+      if (fileInputRef.current) fileInputRef.current.value = '';
+    }
+  }
+
+  async function loadDocuments() {
+    try {
+      const docs = await api.getDocuments();
+      setDocuments(docs);
+    } catch {
+      // ignore
+    }
+  }
+
+  async function handleDeleteDoc(id: string) {
+    try {
+      await api.deleteDocument(id);
+      setDocuments(prev => prev.filter(d => d.id !== id));
+    } catch {
+      // ignore
+    }
+  }
   return (
     <div className="flex flex-col h-full bg-slate-900 text-slate-200">
       {/* Logo */}
@@ -93,6 +148,71 @@ export default function Sidebar({
               </div>
             );
           })
+        )}
+      </div>
+
+      {/* Document Upload Section */}
+      <div className="px-3 py-2 border-t border-slate-700">
+        <button
+          onClick={() => {
+            setShowDocs(!showDocs);
+            if (!showDocs && documents.length === 0) loadDocuments();
+          }}
+          className="flex items-center gap-2 w-full px-3 py-2 text-sm text-slate-300 hover:text-white hover:bg-slate-800 rounded-lg transition"
+        >
+          <File size={16} className="text-slate-400" />
+          <span>Documents</span>
+          <span className="ml-auto text-xs text-slate-500">{documents.length || ''}</span>
+        </button>
+
+        {showDocs && (
+          <div className="mt-1 space-y-1">
+            {documents.map(doc => (
+              <div key={doc.id} className="flex items-center gap-2 px-3 py-1.5 text-xs text-slate-400 group">
+                <FileText size={12} className="shrink-0" />
+                <span className="truncate flex-1">{doc.filename}</span>
+                <button
+                  onClick={() => handleDeleteDoc(doc.id)}
+                  className="opacity-0 group-hover:opacity-100 p-0.5 hover:text-red-400 transition"
+                >
+                  <X size={12} />
+                </button>
+              </div>
+            ))}
+
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept=".pdf,.docx,.doc,.xlsx,.xls,.csv,.txt"
+              onChange={handleFileUpload}
+              className="hidden"
+            />
+            <button
+              onClick={() => fileInputRef.current?.click()}
+              disabled={uploading}
+              className="flex items-center gap-2 w-full px-3 py-2 text-xs text-slate-400 hover:text-white hover:bg-slate-800 rounded-lg transition"
+            >
+              {uploading ? (
+                <>
+                  <Loader2 size={14} className="animate-spin" />
+                  <span>Uploading...</span>
+                </>
+              ) : (
+                <>
+                  <Upload size={14} />
+                  <span>Upload Document</span>
+                </>
+              )}
+            </button>
+
+            {uploadStatus && (
+              <div className={`px-3 py-1.5 text-xs rounded ${
+                uploadStatus.startsWith('✓') ? 'text-emerald-400' : 'text-red-400'
+              }`}>
+                {uploadStatus}
+              </div>
+            )}
+          </div>
         )}
       </div>
 

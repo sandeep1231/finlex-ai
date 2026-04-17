@@ -5,18 +5,20 @@ import { ChatMessage } from '@/lib/api';
 import {
   User,
   Scale,
-  Calculator,
-  FileText,
   Wrench,
   BookOpen,
+  AlertTriangle,
+  Info,
 } from 'lucide-react';
 
 interface MessageBubbleProps {
   message: ChatMessage;
+  onRetry?: () => void;
 }
 
-export default function MessageBubble({ message }: MessageBubbleProps) {
+export default function MessageBubble({ message, onRetry }: MessageBubbleProps) {
   const isUser = message.role === 'user';
+  const isError = message.tool_used === '__error__';
 
   return (
     <div
@@ -44,11 +46,13 @@ export default function MessageBubble({ message }: MessageBubbleProps) {
         className={`max-w-[80%] rounded-2xl px-4 py-3 ${
           isUser
             ? 'bg-primary-600 text-white rounded-tr-sm'
+            : isError
+            ? 'bg-red-50 border border-red-200 rounded-tl-sm'
             : 'bg-white border border-slate-200 rounded-tl-sm'
         }`}
       >
         {/* Tool Used Badge */}
-        {message.tool_used && (
+        {message.tool_used && message.tool_used !== '__error__' && (
           <div className="flex items-center gap-1.5 mb-2 text-xs">
             <Wrench size={12} className="text-amber-500" />
             <span className="text-amber-600 font-medium bg-amber-50 px-2 py-0.5 rounded-full">
@@ -57,13 +61,31 @@ export default function MessageBubble({ message }: MessageBubbleProps) {
           </div>
         )}
 
+        {/* Error Icon */}
+        {isError && (
+          <div className="flex items-center gap-1.5 mb-2 text-xs">
+            <AlertTriangle size={12} className="text-red-500" />
+            <span className="text-red-600 font-medium">Error</span>
+          </div>
+        )}
+
         {/* Message Text */}
         {isUser ? (
           <p className="text-sm whitespace-pre-wrap">{message.content}</p>
         ) : (
-          <div className="markdown-content text-sm text-slate-800">
+          <div className={`markdown-content text-sm ${isError ? 'text-red-700' : 'text-slate-800'}`}>
             <ReactMarkdown>{message.content}</ReactMarkdown>
           </div>
+        )}
+
+        {/* Retry Button for Errors */}
+        {isError && onRetry && (
+          <button
+            onClick={onRetry}
+            className="mt-2 text-xs text-red-600 hover:text-red-800 font-medium underline"
+          >
+            Try again
+          </button>
         )}
 
         {/* Sources */}
@@ -81,6 +103,16 @@ export default function MessageBubble({ message }: MessageBubbleProps) {
                 {ref.document}
               </div>
             ))}
+          </div>
+        )}
+
+        {/* Disclaimer for AI messages (non-error) */}
+        {!isUser && !isError && message.content.length > 100 && (
+          <div className="mt-3 pt-2 border-t border-slate-100 flex items-start gap-1.5">
+            <Info size={11} className="text-slate-300 shrink-0 mt-0.5" />
+            <p className="text-[10px] text-slate-400 leading-snug">
+              AI-generated. Verify with a qualified CA/Advocate before acting.
+            </p>
           </div>
         )}
       </div>
