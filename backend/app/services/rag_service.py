@@ -25,20 +25,17 @@ class RAGService:
 
     async def get_context(self, query: str, mode: str = "general") -> str:
         """Get relevant context from the knowledge base for a query."""
-        category = None
-        if mode == "accounting":
-            category = "tax"
-        elif mode == "legal":
-            category = "legal"
-
-        results = await self.search(query, k=5, category=category)
+        # Always search without category filter to include user-uploaded documents
+        results = await self.search(query, k=5, category=None)
 
         if not results:
-            return "No specific context found in the knowledge base."
+            return "No specific context found in the knowledge base or uploaded documents."
 
         context_parts = []
         for doc in results:
             source = doc.metadata.get("source", "unknown")
-            context_parts.append(f"[Source: {source}]\n{doc.page_content}")
+            doc_type = doc.metadata.get("type", "built-in")
+            label = f"[Uploaded Document: {source}]" if doc_type == "user_upload" else f"[Knowledge Base: {source}]"
+            context_parts.append(f"{label}\n{doc.page_content}")
 
         return "\n\n---\n\n".join(context_parts)
