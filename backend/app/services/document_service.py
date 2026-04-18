@@ -15,7 +15,7 @@ from app.services.rag_service import RAGService
 
 settings = get_settings()
 
-ALLOWED_EXTENSIONS = {".pdf", ".docx", ".xlsx", ".csv", ".txt"}
+ALLOWED_EXTENSIONS = {".pdf", ".docx", ".xlsx", ".csv", ".txt", ".jpg", ".jpeg", ".png", ".webp", ".heic", ".heif"}
 
 
 class DocumentService:

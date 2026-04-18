@@ -160,12 +160,12 @@ export default function ChatPanel({
     const file = e.target.files?.[0];
     if (!file) return;
 
-    const allowedTypes = ['.pdf', '.docx', '.xlsx', '.csv', '.txt'];
+    const allowedTypes = ['.pdf', '.docx', '.xlsx', '.csv', '.txt', '.jpg', '.jpeg', '.png', '.webp', '.heic', '.heif'];
     const ext = '.' + file.name.split('.').pop()?.toLowerCase();
     if (!allowedTypes.includes(ext)) {
       const errorMsg: ChatMessage = {
         role: 'assistant',
-        content: `⚠️ Unsupported file type "${ext}". Supported: PDF, DOCX, XLSX, CSV, TXT.`,
+        content: `⚠️ Unsupported file type "${ext}". Supported: PDF, DOCX, XLSX, CSV, TXT, JPG, PNG, WEBP.`,
         tool_used: '__error__',
       };
       setMessages(prev => [...prev, errorMsg]);
@@ -332,7 +332,7 @@ export default function ChatPanel({
             <input
               ref={fileInputRef}
               type="file"
-              accept=".pdf,.docx,.xlsx,.csv,.txt"
+              accept=".pdf,.docx,.xlsx,.csv,.txt,.jpg,.jpeg,.png,.webp,.heic,.heif"
               onChange={handleFileSelect}
               className="hidden"
             />
@@ -340,7 +340,7 @@ export default function ChatPanel({
               onClick={() => fileInputRef.current?.click()}
               disabled={isLoading || isUploading}
               className="p-2 text-slate-400 hover:text-primary-600 hover:bg-primary-50 rounded-lg disabled:opacity-40 disabled:cursor-not-allowed transition shrink-0"
-              title="Attach document (PDF, DOCX, XLSX, CSV, TXT)"
+              title="Attach file (PDF, DOCX, XLSX, CSV, TXT, JPG, PNG, WEBP)"
             >
               <Paperclip size={18} />
             </button>

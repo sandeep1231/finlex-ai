@@ -1,5 +1,7 @@
 import asyncio
+import base64
 import json
+import logging
 import os
 from pathlib import Path
 
@@ -18,6 +20,7 @@ from app.ai.embeddings import get_embedding_model
 from app.config import get_settings
 
 settings = get_settings()
+logger = logging.getLogger(__name__)
 
 KNOWLEDGE_BASE_DIR = Path(__file__).parent.parent / "knowledge_base"
 
@@ -27,6 +30,18 @@ SUPPORTED_LOADERS = {
     ".csv": CSVLoader,
     ".txt": TextLoader,
     ".xlsx": UnstructuredExcelLoader,
+}
+
+# Image extensions processed via Gemini Vision
+IMAGE_EXTENSIONS = {".jpg", ".jpeg", ".png", ".webp", ".heic", ".heif"}
+
+IMAGE_MIME_TYPES = {
+    ".jpg": "image/jpeg",
+    ".jpeg": "image/jpeg",
+    ".png": "image/png",
+    ".webp": "image/webp",
+    ".heic": "image/heic",
+    ".heif": "image/heif",
 }
 
 
@@ -114,8 +129,12 @@ class RAGPipeline:
     async def add_document(self, file_path: str, category: str = "general") -> int:
         """Process and add a user-uploaded document to the vector store."""
         ext = os.path.splitext(file_path)[1].lower()
-        loader_class = SUPPORTED_LOADERS.get(ext)
 
+        # Handle image files via Gemini Vision
+        if ext in IMAGE_EXTENSIONS:
+            return await self._process_image(file_path, category)
+
+        loader_class = SUPPORTED_LOADERS.get(ext)
         if not loader_class:
             raise ValueError(f"Unsupported file type: {ext}")
 
@@ -133,6 +152,69 @@ class RAGPipeline:
         if chunks:
             await asyncio.to_thread(self.vectorstore.add_documents, chunks)
 
+        return len(chunks)
+
+    async def _process_image(self, file_path: str, category: str = "general") -> int:
+        """Extract text/content from an image using Gemini Vision and add to vector store."""
+        import google.generativeai as genai
+
+        ext = os.path.splitext(file_path)[1].lower()
+        mime_type = IMAGE_MIME_TYPES.get(ext, "image/jpeg")
+        filename = os.path.basename(file_path)
+
+        # Read and encode image
+        with open(file_path, "rb") as f:
+            image_bytes = f.read()
+
+        image_b64 = base64.b64encode(image_bytes).decode("utf-8")
+
+        # Use Gemini Vision to extract content
+        genai.configure(api_key=settings.google_api_key)
+        model = genai.GenerativeModel("gemini-2.5-flash")
+
+        prompt = (
+            "You are a document analysis assistant for Indian Chartered Accountants and Lawyers. "
+            "Extract ALL text, numbers, and data from this image in a structured format. "
+            "If it's an invoice, receipt, tax form, balance sheet, legal document, or any financial document, "
+            "preserve all amounts, dates, names, sections, and reference numbers. "
+            "If it contains a table, reproduce it. If it's handwritten, transcribe it. "
+            "If it's a photograph of a document, extract all readable text. "
+            "Output the extracted content as clean, structured text."
+        )
+
+        try:
+            response = await asyncio.to_thread(
+                model.generate_content,
+                [
+                    prompt,
+                    {"mime_type": mime_type, "data": image_b64},
+                ],
+            )
+            extracted_text = response.text
+        except Exception as e:
+            logger.error(f"Gemini Vision extraction failed for {filename}: {e}")
+            raise ValueError(f"Failed to extract content from image: {e}")
+
+        if not extracted_text or not extracted_text.strip():
+            raise ValueError("No text could be extracted from the image.")
+
+        # Create LangChain document from extracted text
+        doc = LangchainDocument(
+            page_content=f"[Extracted from image: {filename}]\n\n{extracted_text}",
+            metadata={
+                "category": category,
+                "type": "user_upload",
+                "source": filename,
+                "file_type": "image",
+                "extraction_method": "gemini_vision",
+            },
+        )
+
+        chunks = self.text_splitter.split_documents([doc])
+        if chunks:
+            await asyncio.to_thread(self.vectorstore.add_documents, chunks)
+
+        logger.info(f"Image {filename}: extracted {len(extracted_text)} chars, {len(chunks)} chunks")
         return len(chunks)
 
     async def search(

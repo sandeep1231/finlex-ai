@@ -157,7 +157,7 @@ export default function Sidebar({
         <input
           ref={fileInputRef}
           type="file"
-          accept=".pdf,.docx,.doc,.xlsx,.xls,.csv,.txt"
+          accept=".pdf,.docx,.doc,.xlsx,.xls,.csv,.txt,.jpg,.jpeg,.png,.webp,.heic,.heif"
           onChange={handleFileUpload}
           className="hidden"
         />
