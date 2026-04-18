@@ -14,6 +14,9 @@ import {
   FileCheck,
   BarChart3,
   RefreshCw,
+  Paperclip,
+  X,
+  FileUp,
 } from 'lucide-react';
 
 interface ChatPanelProps {
@@ -58,8 +61,11 @@ export default function ChatPanel({
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [currentConvoId, setCurrentConvoId] = useState<string | null>(conversationId);
+  const [uploadingFile, setUploadingFile] = useState<File | null>(null);
+  const [isUploading, setIsUploading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const justCreatedIdRef = useRef<string | null>(null);
 
   // Load conversation messages when conversation changes
@@ -137,6 +143,77 @@ export default function ChatPanel({
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
       handleSend();
+    }
+  }
+
+  function handleFileSelect(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const allowedTypes = ['.pdf', '.docx', '.xlsx', '.csv', '.txt'];
+    const ext = '.' + file.name.split('.').pop()?.toLowerCase();
+    if (!allowedTypes.includes(ext)) {
+      const errorMsg: ChatMessage = {
+        role: 'assistant',
+        content: `⚠️ Unsupported file type "${ext}". Supported: PDF, DOCX, XLSX, CSV, TXT.`,
+        tool_used: '__error__',
+      };
+      setMessages(prev => [...prev, errorMsg]);
+      return;
+    }
+
+    if (file.size > 50 * 1024 * 1024) {
+      const errorMsg: ChatMessage = {
+        role: 'assistant',
+        content: '⚠️ File too large. Maximum size is 50MB.',
+        tool_used: '__error__',
+      };
+      setMessages(prev => [...prev, errorMsg]);
+      return;
+    }
+
+    setUploadingFile(file);
+    // Reset file input so same file can be re-selected
+    if (fileInputRef.current) fileInputRef.current.value = '';
+  }
+
+  async function handleUploadAndSend() {
+    if (!uploadingFile || isUploading) return;
+
+    setIsUploading(true);
+    const fileName = uploadingFile.name;
+
+    // Show upload message
+    const uploadMsg: ChatMessage = {
+      role: 'user',
+      content: `📎 Uploading: ${fileName}`,
+    };
+    setMessages(prev => [...prev, uploadMsg]);
+
+    try {
+      await api.uploadDocument(uploadingFile, 'general');
+
+      // Replace upload message with success
+      const successMsg: ChatMessage = {
+        role: 'assistant',
+        content: `✅ **${fileName}** uploaded and indexed successfully! You can now ask questions about this document.`,
+      };
+      setMessages(prev => [...prev, successMsg]);
+      setUploadingFile(null);
+
+      // If user also typed a message, send it after upload
+      if (input.trim()) {
+        await handleSend();
+      }
+    } catch (err: any) {
+      const errorMsg: ChatMessage = {
+        role: 'assistant',
+        content: `⚠️ Upload failed: ${err.message || 'Something went wrong'}`,
+        tool_used: '__error__',
+      };
+      setMessages(prev => [...prev, errorMsg]);
+    } finally {
+      setIsUploading(false);
     }
   }
 
@@ -222,23 +299,61 @@ export default function ChatPanel({
       {/* Input Area */}
       <div className="border-t border-slate-200 bg-white px-3 py-2 sm:px-4 sm:py-3 pb-[env(safe-area-inset-bottom,8px)]">
         <div className="max-w-3xl mx-auto">
+          {/* Attached file preview */}
+          {uploadingFile && (
+            <div className="flex items-center gap-2 mb-2 px-3 py-2 bg-primary-50 border border-primary-200 rounded-lg text-sm">
+              <FileUp size={16} className="text-primary-600 shrink-0" />
+              <span className="text-primary-800 truncate flex-1">{uploadingFile.name}</span>
+              <span className="text-primary-500 text-xs shrink-0">
+                {(uploadingFile.size / 1024).toFixed(0)}KB
+              </span>
+              <button
+                onClick={() => setUploadingFile(null)}
+                className="p-0.5 hover:bg-primary-200 rounded transition shrink-0"
+                title="Remove file"
+              >
+                <X size={14} className="text-primary-600" />
+              </button>
+            </div>
+          )}
+
           <div className="flex items-end gap-2 bg-slate-50 border border-slate-200 rounded-xl px-3 sm:px-4 py-2 focus-within:border-primary-400 focus-within:ring-2 focus-within:ring-primary-100 transition">
+            {/* File upload button */}
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept=".pdf,.docx,.xlsx,.csv,.txt"
+              onChange={handleFileSelect}
+              className="hidden"
+            />
+            <button
+              onClick={() => fileInputRef.current?.click()}
+              disabled={isLoading || isUploading}
+              className="p-2 text-slate-400 hover:text-primary-600 hover:bg-primary-50 rounded-lg disabled:opacity-40 disabled:cursor-not-allowed transition shrink-0"
+              title="Attach document (PDF, DOCX, XLSX, CSV, TXT)"
+            >
+              <Paperclip size={18} />
+            </button>
+
             <textarea
               ref={inputRef}
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={handleKeyDown}
-              placeholder={`Ask about ${mode === 'accounting' ? 'tax, GST, TDS...' : mode === 'legal' ? 'contracts, compliance...' : 'accounting or legal...'}`}
+              placeholder={uploadingFile
+                ? `Add a message about ${uploadingFile.name} (optional)...`
+                : `Ask about ${mode === 'accounting' ? 'tax, GST, TDS...' : mode === 'legal' ? 'contracts, compliance...' : 'accounting or legal...'}`
+              }
               className="flex-1 bg-transparent resize-none outline-none text-sm text-slate-800 placeholder-slate-400 max-h-32"
               rows={1}
-              disabled={isLoading}
+              disabled={isLoading || isUploading}
             />
             <button
-              onClick={() => handleSend()}
-              disabled={!input.trim() || isLoading}
+              onClick={() => uploadingFile ? handleUploadAndSend() : handleSend()}
+              disabled={(!input.trim() && !uploadingFile) || isLoading || isUploading}
               className="p-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 disabled:opacity-40 disabled:cursor-not-allowed transition shrink-0"
             >
-              {isLoading ? (
+              {isLoading || isUploading ? (
                 <Loader2 size={18} className="animate-spin" />
               ) : (
                 <Send size={18} />
