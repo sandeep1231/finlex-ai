@@ -378,3 +378,373 @@ Date: _______________
 
 *Note: This is a draft. Please have it reviewed by a qualified advocate before execution.*
 """
+
+
+@tool
+def draft_partnership_deed(
+    firm_name: str,
+    partner_names: str,
+    business_nature: str,
+    capital_contributions: str,
+    profit_sharing_ratio: str,
+    jurisdiction: str = "Delhi",
+) -> str:
+    """Draft a Partnership Deed under the Indian Partnership Act, 1932.
+
+    Args:
+        firm_name: Name of the partnership firm.
+        partner_names: Comma-separated names of all partners.
+        business_nature: Nature and scope of the business.
+        capital_contributions: Comma-separated capital contribution by each partner (e.g., 'A:500000,B:300000').
+        profit_sharing_ratio: Profit/loss sharing ratio (e.g., '60:40' or 'A:60,B:40').
+        jurisdiction: City for jurisdiction clause.
+
+    Returns:
+        Formatted partnership deed draft.
+    """
+    partners = [p.strip() for p in partner_names.split(",")]
+
+    return f"""## PARTNERSHIP DEED
+
+**This Partnership Deed** is made and executed on [Insert Date] at {jurisdiction}, by and between:
+
+{chr(10).join(f"**{i+1}. {p}**, S/o [Father's Name], R/o [Address] (hereinafter referred to as the '{chr(65+i)}th Partner')" for i, p in enumerate(partners))}
+
+(Collectively referred to as "Partners")
+
+### RECITALS
+
+The Partners have agreed to carry on business in partnership under the provisions of the \
+Indian Partnership Act, 1932, on the following terms and conditions:
+
+### 1. NAME AND STYLE
+
+The partnership firm shall be known as **"{firm_name}"**.
+
+### 2. NATURE OF BUSINESS
+
+{business_nature}
+
+### 3. PLACE OF BUSINESS
+
+The principal place of business shall be at [Insert Address], {jurisdiction}.
+
+### 4. COMMENCEMENT AND DURATION
+
+The partnership shall commence from [Insert Date] and shall continue until dissolved \
+by mutual consent or as per the provisions of this deed.
+
+### 5. CAPITAL CONTRIBUTION
+
+{capital_contributions}
+
+Interest on capital shall be allowed at the rate of 12% per annum (maximum allowable \
+under Section 40(b) of the Income Tax Act, 1961).
+
+### 6. PROFIT AND LOSS SHARING
+
+The profits and losses of the firm shall be shared in the following ratio:
+**{profit_sharing_ratio}**
+
+### 7. REMUNERATION TO PARTNERS
+
+Working partners shall be entitled to remuneration as per the limits prescribed under \
+Section 40(b)(v) of the Income Tax Act, 1961:
+- On first ₹3,00,000 of book profit or in case of loss: ₹1,50,000 or 90% of book profit, whichever is more
+- On the balance: 60% of book profit
+
+### 8. DRAWINGS
+
+Each partner may draw up to ₹[amount] per month. Interest on drawings shall be charged \
+at [rate]% per annum.
+
+### 9. BANKING AND ACCOUNTS
+
+- Bank accounts shall be operated jointly / by any partner [specify].
+- Books of accounts shall be maintained at the principal place of business.
+- Accounts shall be audited annually by a Chartered Accountant if required under Sec 44AB.
+- Financial year: April 1 to March 31.
+
+### 10. DUTIES AND OBLIGATIONS
+
+Each partner shall:
+- Devote full time and attention to the business (unless otherwise agreed)
+- Not engage in any competing business
+- Act in good faith and utmost fidelity towards the firm and co-partners
+
+### 11. RETIREMENT AND EXPULSION
+
+- A partner may retire by giving 3 months' written notice
+- Outgoing partner's share shall be determined based on the last audited balance sheet
+- Goodwill shall be valued at [method: average profits / super profits / capitalization]
+
+### 12. DISSOLUTION
+
+The firm shall be dissolved:
+- By mutual consent of all partners
+- On death or insolvency of a partner (unless continued by remaining partners)
+- By court order under Section 44 of the Partnership Act, 1932
+
+### 13. ARBITRATION
+
+Any dispute shall be resolved by arbitration under the Arbitration and Conciliation Act, 1996. \
+The seat of arbitration shall be {jurisdiction}.
+
+### 14. TDS ON PARTNER REMUNERATION
+
+As per Section 194T (effective FY 2025-26), TDS at 10% shall be deducted on remuneration, \
+salary, commission, bonus, or interest paid to partners exceeding ₹20,000 in a financial year.
+
+---
+
+**IN WITNESS WHEREOF**, the Partners have signed this deed on the date first written above.
+
+{chr(10).join(f"**{p}**{chr(10)}Signature: _______________{chr(10)}Date: _______________{chr(10)}" for p in partners)}
+
+**Witnesses:**
+1. Name: _______________ | Signature: _______________
+2. Name: _______________ | Signature: _______________
+
+*Note: Register this deed with the Registrar of Firms. This is a draft — please review \
+with a qualified advocate. Stamp duty as per state law is applicable.*
+"""
+
+
+@tool
+def draft_power_of_attorney(
+    principal_name: str,
+    attorney_name: str,
+    purpose: str,
+    powers: str,
+    is_general: bool = False,
+    jurisdiction: str = "Delhi",
+) -> str:
+    """Draft a Power of Attorney (General or Special) under the Powers of Attorney Act, 1882.
+
+    Args:
+        principal_name: Name of the person granting the power.
+        attorney_name: Name of the person receiving the power (the attorney/agent).
+        purpose: Purpose for which the power is being granted.
+        powers: Comma-separated list of specific powers granted.
+        is_general: True for General Power of Attorney (GPA), False for Special Power of Attorney (SPA).
+        jurisdiction: City/state for jurisdiction.
+
+    Returns:
+        Formatted Power of Attorney draft.
+    """
+    poa_type = "GENERAL POWER OF ATTORNEY" if is_general else "SPECIAL POWER OF ATTORNEY"
+    power_list = [p.strip() for p in powers.split(",")]
+
+    return f"""## {poa_type}
+
+(Under the Powers of Attorney Act, 1882)
+
+**KNOW ALL MEN BY THESE PRESENTS** that I, **{principal_name}**, S/o [Father's Name], \
+aged [Age] years, R/o [Address], {jurisdiction} (hereinafter called the "Principal/Executant") \
+do hereby appoint and constitute:
+
+**{attorney_name}**, S/o [Father's Name], aged [Age] years, R/o [Address], {jurisdiction} \
+(hereinafter called the "Attorney/Agent")
+
+as my true and lawful Attorney to act on my behalf for the following purpose(s):
+
+### PURPOSE
+
+{purpose}
+
+### POWERS GRANTED
+
+I hereby authorize my said Attorney to do and perform the following acts on my behalf:
+
+{chr(10).join(f"{i+1}. {p}" for i, p in enumerate(power_list))}
+
+{"### ADDITIONAL GENERAL POWERS" if is_general else ""}
+{"The Attorney shall have full power and authority to do all such acts, deeds, and things as may be necessary or expedient, as fully and effectually as I could do if personally present." if is_general else ""}
+
+### CONDITIONS AND LIMITATIONS
+
+1. This Power of Attorney shall {"remain in force until revoked in writing" if is_general else "be valid only for the specific purpose mentioned above and shall stand revoked upon completion of the said purpose"}.
+2. The Attorney shall act in good faith and in the best interest of the Principal.
+3. The Attorney shall not delegate the powers conferred unless specifically authorized.
+4. The Attorney shall maintain proper accounts of all transactions made on behalf of the Principal.
+5. The Attorney shall not use the powers for personal benefit.
+
+### INDEMNITY
+
+I hereby agree to ratify and confirm all lawful acts done by the said Attorney in pursuance \
+of this Power of Attorney.
+
+### REVOCATION
+
+This Power of Attorney may be revoked by the Principal at any time by giving written notice \
+to the Attorney. {"" if is_general else "It shall automatically stand revoked upon completion of the specific purpose."}
+
+### GOVERNING LAW
+
+This Power of Attorney shall be governed by the laws of India, specifically the Powers of \
+Attorney Act, 1882, and the Indian Contract Act, 1872.
+
+---
+
+**IN WITNESS WHEREOF**, I have executed this Power of Attorney on this [Day] day of [Month], [Year] \
+at {jurisdiction}.
+
+**EXECUTANT/PRINCIPAL**
+{principal_name}
+Signature: _______________
+
+**ACCEPTED BY ATTORNEY**
+{attorney_name}
+Signature: _______________
+
+**WITNESSES:**
+1. Name: _______________ | Address: _______________ | Signature: _______________
+2. Name: _______________ | Address: _______________ | Signature: _______________
+
+**NOTARY PUBLIC** (if applicable)
+[Notary Name & Seal]
+
+---
+
+### Important Notes:
+- **Registration**: {"GPA for immovable property MUST be registered (as per SC ruling in Suraj Lamp v. State of Haryana, 2011)" if is_general else "SPA should be notarized; registration recommended for property matters"}
+- **Stamp Duty**: Applicable as per state stamp duty laws
+- **Validity**: {"GPA does not transfer ownership — it only authorizes the agent to act" if is_general else "Valid only for the specific purpose stated"}
+- GPA **cannot** be used for sale of immovable property (to avoid stamp duty evasion)
+
+*Note: This is a draft. Please review with a qualified advocate before execution and registration.*
+"""
+
+
+@tool
+def draft_rent_agreement(
+    landlord_name: str,
+    tenant_name: str,
+    property_address: str,
+    monthly_rent: float,
+    security_deposit: float,
+    lease_period_months: int = 11,
+    start_date: str = "[Insert Date]",
+    jurisdiction: str = "Delhi",
+) -> str:
+    """Draft a Rent/Lease Agreement under the Transfer of Property Act, 1882.
+
+    Args:
+        landlord_name: Name of the landlord/lessor.
+        tenant_name: Name of the tenant/lessee.
+        property_address: Full address of the rented property.
+        monthly_rent: Monthly rent amount (₹).
+        security_deposit: Security deposit amount (₹).
+        lease_period_months: Lease duration in months (default 11 — avoids mandatory registration).
+        start_date: Start date of the lease.
+        jurisdiction: City/state for jurisdiction and stamp duty.
+
+    Returns:
+        Formatted rent agreement draft.
+    """
+    annual_rent = monthly_rent * 12
+    registration_note = ("**Note:** Lease > 11 months requires mandatory registration under "
+                         "Section 17 of the Registration Act, 1908. Registration charges and "
+                         "stamp duty will apply as per state laws.") if lease_period_months > 11 else ""
+
+    return f"""## RENT / LEASE AGREEMENT
+
+**This Rent Agreement** is made and executed on **{start_date}** at {jurisdiction}, between:
+
+**LANDLORD / LESSOR:**
+**{landlord_name}**, S/o [Father's Name], R/o [Address]
+(Hereinafter referred to as the "Landlord", which expression shall include heirs, successors, and assigns)
+
+**AND**
+
+**TENANT / LESSEE:**
+**{tenant_name}**, S/o [Father's Name], R/o [Address]
+(Hereinafter referred to as the "Tenant", which expression shall include heirs, successors, and assigns)
+
+### PROPERTY DETAILS
+
+The Landlord hereby lets out the following property to the Tenant:
+
+**Address:** {property_address}
+**Type:** [Residential / Commercial]
+**Area:** [Insert Area in sq. ft.]
+**Furnishing:** [Furnished / Semi-Furnished / Unfurnished]
+
+### TERMS AND CONDITIONS
+
+**1. LEASE PERIOD**
+The lease shall be for a period of **{lease_period_months} months**, commencing from **{start_date}**.
+{registration_note}
+
+**2. MONTHLY RENT**
+₹{monthly_rent:,.0f} (Rupees [In Words] only) payable on or before the 5th of each month.
+
+**3. RENT ESCALATION**
+The rent shall be increased by **5-10%** on renewal, as mutually agreed.
+
+**4. SECURITY DEPOSIT**
+₹{security_deposit:,.0f} (Rupees [In Words] only), refundable at the time of vacating the property, \
+after deducting any outstanding dues or damages.
+
+**5. MAINTENANCE CHARGES**
+[As applicable — specify who pays society maintenance, property tax, etc.]
+
+**6. ELECTRICITY AND WATER**
+The Tenant shall pay electricity and water charges as per meter reading / actual consumption.
+
+**7. USE OF PROPERTY**
+The Tenant shall use the property exclusively for [residential / commercial — specify] purposes \
+and shall not use it for any illegal or immoral activities.
+
+**8. SUBLETTING**
+The Tenant shall NOT sublet, assign, or transfer the property or any part thereof to any third party.
+
+**9. REPAIRS AND MAINTENANCE**
+- **Landlord:** Major structural repairs, external painting, plumbing lines
+- **Tenant:** Day-to-day maintenance, minor repairs, internal upkeep
+
+**10. TERMINATION**
+Either party may terminate this agreement by giving **2 months' written notice**. \
+The Tenant shall hand over the property in its original condition (normal wear and tear excepted).
+
+**11. LOCK-IN PERIOD**
+[Insert duration, e.g., "The first 6 months shall be a lock-in period during which neither party can terminate."]
+
+**12. INVENTORY LIST**
+[Attach list of furniture, fittings, appliances provided with the property]
+
+### TAX IMPLICATIONS
+
+| Aspect | Details |
+|--------|---------|
+| TDS on Rent | Applicable u/s 194-IB if monthly rent > ₹50,000 (TDS @ 2%) |
+| Income Tax | Rental income taxable under "Income from House Property" for landlord |
+| GST | Applicable on commercial property rent (18%); Exempt for residential use |
+| Stamp Duty | As per state laws (varies by state) |
+| HRA Benefit | Tenant can claim HRA exemption u/s 10(13A) under Old Regime |
+
+### DISPUTE RESOLUTION
+
+Any dispute shall be first resolved through mutual discussion. Failing which, it shall be \
+referred to arbitration under the Arbitration and Conciliation Act, 1996. \
+Courts in **{jurisdiction}** shall have exclusive jurisdiction.
+
+---
+
+**IN WITNESS WHEREOF**, the parties have signed this agreement on the date first written above.
+
+**LANDLORD**
+{landlord_name}
+Signature: _______________
+
+**TENANT**
+{tenant_name}
+Signature: _______________
+
+**WITNESSES:**
+1. Name: _______________ | Signature: _______________
+2. Name: _______________ | Signature: _______________
+
+*Note: This is a draft. Stamp duty is payable as per state law. For lease > 11 months, \
+registration under Registration Act, 1908 is mandatory. Please review with a qualified advocate.*
+"""

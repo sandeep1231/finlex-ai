@@ -1,0 +1,105 @@
+{
+  "title": "ITR Filing Guide — Which ITR Form to Use (FY 2025-26)",
+  "forms": {
+    "ITR-1_Sahaj": {
+      "for": "Resident individuals",
+      "income_limit": "Up to ₹50 lakh",
+      "income_sources": [
+        "Salary / Pension",
+        "One house property",
+        "Other sources (interest, dividends, family pension)",
+        "Agricultural income up to ₹5,000"
+      ],
+      "not_for": [
+        "NRIs",
+        "Income from capital gains",
+        "More than one house property",
+        "Business income",
+        "Total income > ₹50 lakh",
+        "Director of a company",
+        "Unlisted equity shares",
+        "Foreign income or assets"
+      ],
+      "due_date": "July 31"
+    },
+    "ITR-2": {
+      "for": "Individuals and HUFs NOT having business/professional income",
+      "income_sources": [
+        "Salary / Pension",
+        "Multiple house properties",
+        "Capital gains (all types)",
+        "Other sources",
+        "Foreign income / assets",
+        "Agricultural income > ₹5,000"
+      ],
+      "not_for": ["Business or professional income"],
+      "due_date": "July 31"
+    },
+    "ITR-3": {
+      "for": "Individuals and HUFs having business/professional income",
+      "income_sources": [
+        "Business or profession income",
+        "Salary",
+        "House property",
+        "Capital gains",
+        "Other sources",
+        "Partner in a firm"
+      ],
+      "note": "Must if you have intraday trading or F&O income",
+      "due_date": "July 31 (October 31 if tax audit required)"
+    },
+    "ITR-4_Sugam": {
+      "for": "Individuals, HUFs, and firms (other than LLP) opting for presumptive taxation",
+      "schemes": [
+        "Section 44AD: Business income (turnover up to ₹3 crore if 95%+ digital receipts, else ₹2 crore). Deemed profit: 8% (cash) / 6% (digital)",
+        "Section 44ADA: Professionals (gross receipts up to ₹75 lakh if 95%+ digital). Deemed profit: 50%",
+        "Section 44AE: Goods carriage operators"
+      ],
+      "income_limit": "Up to ₹50 lakh",
+      "not_for": ["Companies", "LLPs", "Total income > ₹50L", "Foreign income"],
+      "due_date": "July 31"
+    },
+    "ITR-5": {
+      "for": "Partnership firms, LLPs, AOPs, BOIs, artificial juridical persons",
+      "not_for": ["Companies", "Individuals", "HUFs"],
+      "due_date": "October 31 (if audit required), else July 31"
+    },
+    "ITR-6": {
+      "for": "Companies other than those claiming Section 11 exemption (charitable trusts)",
+      "note": "Must be filed electronically",
+      "due_date": "October 31"
+    },
+    "ITR-7": {
+      "for": "Trusts, political parties, institutions, charitable organizations, universities, research associations",
+      "sections": ["Section 139(4A)", "139(4B)", "139(4C)", "139(4D)"],
+      "due_date": "October 31"
+    }
+  },
+  "key_due_dates_FY2025_26": {
+    "ITR_without_audit": "July 31, 2026",
+    "ITR_with_audit_44AB": "October 31, 2026",
+    "ITR_transfer_pricing": "November 30, 2026",
+    "belated_return": "December 31, 2026 (with fee u/s 234F)",
+    "revised_return": "December 31, 2026",
+    "tax_audit_report": "September 30, 2026",
+    "transfer_pricing_report": "October 31, 2026",
+    "penalty_234F": "₹5,000 if filed after due date (₹1,000 if income ≤ ₹5L)"
+  },
+  "mandatory_disclosures": {
+    "bank_accounts": "All bank accounts (including those closed during the year)",
+    "foreign_assets": "Schedule FA (Foreign Assets) — must report all foreign bank accounts, properties, shares",
+    "capital_gains": "Script-wise details of all equity/MF transactions",
+    "cash_deposits": "Disclose cash deposits exceeding ₹10L in savings accounts",
+    "high_value_transactions": "Annual Information Statement (AIS) reconciliation"
+  },
+  "common_mistakes": [
+    "Not reporting exempt income (LTCG up to ₹1.25L, agricultural income)",
+    "Missing bank interest from savings accounts",
+    "Not matching Form 26AS / AIS data",
+    "Wrong ITR form selection",
+    "Not disclosing all bank accounts",
+    "Forgetting to verify ITR within 30 days of filing",
+    "Not reporting capital gains from mutual fund SWP/redemptions",
+    "Claiming deductions not available in New Regime"
+  ]
+}

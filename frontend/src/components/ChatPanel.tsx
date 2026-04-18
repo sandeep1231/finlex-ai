@@ -17,6 +17,10 @@ import {
   Paperclip,
   X,
   FileUp,
+  TrendingUp,
+  Home,
+  Building2,
+  Landmark,
 } from 'lucide-react';
 
 interface ChatPanelProps {
@@ -30,24 +34,30 @@ const QUICK_ACTIONS: Record<string, Array<{ icon: typeof Calculator; label: stri
     { icon: Calculator, label: 'Income Tax', prompt: 'Calculate income tax for ₹15 lakh salary under new regime for FY 2025-26', color: 'text-emerald-600 bg-emerald-50 border-emerald-200' },
     { icon: Scale, label: 'Compare Regimes', prompt: 'Compare old vs new tax regime for ₹20L income with ₹2.5L in 80C deductions', color: 'text-blue-600 bg-blue-50 border-blue-200' },
     { icon: IndianRupee, label: 'GST Calculator', prompt: 'Calculate GST at 18% on a service worth ₹1,00,000', color: 'text-purple-600 bg-purple-50 border-purple-200' },
+    { icon: TrendingUp, label: 'Capital Gains', prompt: 'Calculate capital gains on sale of property bought for ₹50L in 2018-19, sold for ₹1.2Cr in 2025-26', color: 'text-orange-600 bg-orange-50 border-orange-200' },
     { icon: FileText, label: 'Draft NDA', prompt: 'Draft an NDA between two companies for a consulting engagement', color: 'text-amber-600 bg-amber-50 border-amber-200' },
     { icon: FileCheck, label: 'TDS Calculator', prompt: 'Calculate TDS on professional fees of ₹50,000 under section 194J', color: 'text-rose-600 bg-rose-50 border-rose-200' },
-    { icon: BarChart3, label: 'Financial Ratios', prompt: 'Calculate financial ratios: revenue 50L, net income 8L, total assets 30L, total liabilities 12L, current assets 15L, current liabilities 8L, inventory 5L', color: 'text-teal-600 bg-teal-50 border-teal-200' },
+    { icon: Home, label: 'HRA Exemption', prompt: 'Calculate HRA exemption: Basic ₹60,000/month, DA ₹10,000, HRA ₹25,000, Rent ₹30,000, Mumbai', color: 'text-cyan-600 bg-cyan-50 border-cyan-200' },
+    { icon: BarChart3, label: 'EMI Calculator', prompt: 'Calculate EMI for home loan of ₹50 lakh at 8.5% interest for 20 years', color: 'text-teal-600 bg-teal-50 border-teal-200' },
   ],
   accounting: [
     { icon: Calculator, label: 'Income Tax', prompt: 'Calculate income tax for ₹25 lakh salary under new regime for FY 2025-26', color: 'text-emerald-600 bg-emerald-50 border-emerald-200' },
     { icon: Scale, label: 'Compare Regimes', prompt: 'Compare old vs new tax regime for ₹18L income with ₹3L deductions under 80C, 80D, and 80CCD(1B)', color: 'text-blue-600 bg-blue-50 border-blue-200' },
+    { icon: TrendingUp, label: 'Capital Gains', prompt: 'Calculate LTCG on listed equity shares: bought 500 shares at ₹200 in Jan 2023, sold at ₹450 in Dec 2025', color: 'text-orange-600 bg-orange-50 border-orange-200' },
     { icon: IndianRupee, label: 'Advance Tax', prompt: 'Calculate advance tax schedule for estimated annual tax liability of ₹3,00,000', color: 'text-purple-600 bg-purple-50 border-purple-200' },
     { icon: FileCheck, label: 'TDS on Rent', prompt: 'Calculate TDS on monthly rent of ₹60,000 paid to an individual landlord', color: 'text-rose-600 bg-rose-50 border-rose-200' },
+    { icon: Landmark, label: 'TCS Calculator', prompt: 'Calculate TCS on foreign remittance of ₹12 lakh under LRS for overseas travel', color: 'text-indigo-600 bg-indigo-50 border-indigo-200' },
     { icon: BarChart3, label: 'Depreciation', prompt: 'Calculate depreciation for a computer worth ₹1,50,000 using WDV method at 40% for 5 years', color: 'text-teal-600 bg-teal-50 border-teal-200' },
-    { icon: FileText, label: 'Section 80C', prompt: 'What are all the deductions available under Section 80C, 80D, and 80CCD(1B) for FY 2025-26?', color: 'text-amber-600 bg-amber-50 border-amber-200' },
+    { icon: FileText, label: 'ITR Guide', prompt: 'Which ITR form should a salaried person with capital gains and 2 house properties file for FY 2025-26?', color: 'text-amber-600 bg-amber-50 border-amber-200' },
   ],
   legal: [
     { icon: FileText, label: 'Legal Notice', prompt: 'Draft a legal notice for breach of contract for non-payment of ₹5,00,000 for services rendered', color: 'text-amber-600 bg-amber-50 border-amber-200' },
     { icon: FileCheck, label: 'Board Resolution', prompt: 'Draft a board resolution for appointment of a new director under Companies Act 2013', color: 'text-blue-600 bg-blue-50 border-blue-200' },
-    { icon: Scale, label: 'Engagement Letter', prompt: 'Draft a CA engagement letter for statutory audit of a private limited company', color: 'text-emerald-600 bg-emerald-50 border-emerald-200' },
-    { icon: FileText, label: 'Draft NDA', prompt: 'Draft a non-disclosure agreement with 3-year confidentiality period and Delhi jurisdiction', color: 'text-purple-600 bg-purple-50 border-purple-200' },
-    { icon: Calculator, label: 'BNS 2023', prompt: 'What are the key changes in Bharatiya Nyaya Sanhita 2023 compared to the Indian Penal Code?', color: 'text-rose-600 bg-rose-50 border-rose-200' },
+    { icon: Home, label: 'Rent Agreement', prompt: 'Draft a rent agreement: Landlord Rajesh Kumar, Tenant Amit Sharma, 2BHK in Mumbai, rent ₹35,000/month, deposit ₹2,10,000', color: 'text-emerald-600 bg-emerald-50 border-emerald-200' },
+    { icon: Building2, label: 'Partnership Deed', prompt: 'Draft a partnership deed for a CA firm with 3 partners, capital ₹10L each, profit sharing 40:30:30', color: 'text-purple-600 bg-purple-50 border-purple-200' },
+    { icon: Scale, label: 'Power of Attorney', prompt: 'Draft a special power of attorney to sell a flat in Delhi on behalf of an NRI owner', color: 'text-rose-600 bg-rose-50 border-rose-200' },
+    { icon: FileText, label: 'Draft NDA', prompt: 'Draft a non-disclosure agreement with 3-year confidentiality period and Delhi jurisdiction', color: 'text-cyan-600 bg-cyan-50 border-cyan-200' },
+    { icon: Landmark, label: 'Stamp Duty', prompt: 'What is the stamp duty for buying a flat worth ₹80 lakh in Mumbai for a male buyer?', color: 'text-orange-600 bg-orange-50 border-orange-200' },
     { icon: BarChart3, label: 'DPDP Act', prompt: 'Explain the key compliance requirements under the Digital Personal Data Protection Act 2023', color: 'text-teal-600 bg-teal-50 border-teal-200' },
   ],
 };
@@ -239,7 +249,7 @@ export default function ChatPanel({
               </p>
             </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-3">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3">
               {actions.map((action, idx) => {
                 const Icon = action.icon;
                 return (

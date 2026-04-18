@@ -14,10 +14,21 @@ from app.ai.tools.document_drafter import (
     draft_engagement_letter,
     draft_board_resolution,
     draft_nda,
+    draft_partnership_deed,
+    draft_power_of_attorney,
+    draft_rent_agreement,
 )
 from app.ai.tools.financial_tools import (
     financial_ratios,
     depreciation_calculator,
+)
+from app.ai.tools.capital_gains import (
+    calculate_capital_gains,
+)
+from app.ai.tools.additional_tools import (
+    calculate_tcs,
+    calculate_hra_exemption,
+    calculate_emi,
 )
 
 
@@ -28,7 +39,11 @@ def get_all_tools():
         calculate_income_tax,
         compare_tax_regimes,
         calculate_tds,
+        calculate_tcs,
         calculate_advance_tax,
+        calculate_capital_gains,
+        calculate_hra_exemption,
+        calculate_emi,
         # GST calculators
         calculate_gst,
         reverse_charge_gst,
@@ -38,6 +53,9 @@ def get_all_tools():
         draft_engagement_letter,
         draft_board_resolution,
         draft_nda,
+        draft_partnership_deed,
+        draft_power_of_attorney,
+        draft_rent_agreement,
         # Financial tools
         financial_ratios,
         depreciation_calculator,

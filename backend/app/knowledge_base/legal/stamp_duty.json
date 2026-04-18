@@ -1,0 +1,166 @@
+{
+  "title": "Stamp Duty Rates — Major Indian States (FY 2025-26)",
+  "description": "State-wise stamp duty rates for property transactions, agreements, and other instruments",
+  "states": {
+    "Maharashtra": {
+      "property_sale": {
+        "male": "6%",
+        "female": "5%",
+        "joint": "6%",
+        "note": "1% metro cess in Mumbai, Pune, Nagpur, Thane"
+      },
+      "registration": "1% (max ₹30,000)",
+      "lease_agreement": "0.25% of total rent + deposit for 1-5 years",
+      "gift_deed": "3% (family), 5% (others)",
+      "partnership_deed": "₹500 flat",
+      "power_of_attorney_property": "5% of market value (GPA), ₹500 (SPA)",
+      "affidavit": "₹100"
+    },
+    "Delhi": {
+      "property_sale": {
+        "male": "6%",
+        "female": "4%",
+        "joint": "5%",
+        "note": "Rebate of 1% for women buyers"
+      },
+      "registration": "1%",
+      "lease_agreement": "2% for 1-5 years, 3% for 5-10 years, 6% for 10+ years",
+      "gift_deed": "4% (family), 6% (others)",
+      "partnership_deed": "₹500 flat",
+      "power_of_attorney_property": "Based on DDA circle rates",
+      "affidavit": "₹10"
+    },
+    "Karnataka": {
+      "property_sale": {
+        "male": "5%",
+        "female": "5%",
+        "joint": "5%",
+        "note": "Additional 1% surcharge on stamp duty"
+      },
+      "registration": "1%",
+      "lease_agreement": "0.5% for 1-10 years, 1% for 10-20 years",
+      "gift_deed": "5% (across all)",
+      "partnership_deed": "₹500 flat",
+      "power_of_attorney_property": "₹500 (SPA), 5% of value (GPA)",
+      "affidavit": "₹20"
+    },
+    "Tamil_Nadu": {
+      "property_sale": {
+        "rate": "7%",
+        "note": "Uniform for all genders; 1% registration surcharge"
+      },
+      "registration": "4%",
+      "lease_agreement": "1% for up to 3 years, 4% for 3-10 years",
+      "gift_deed": "7%",
+      "partnership_deed": "₹300 flat",
+      "power_of_attorney_property": "4% of market value",
+      "affidavit": "₹20"
+    },
+    "Uttar_Pradesh": {
+      "property_sale": {
+        "male": "7%",
+        "female": "6%",
+        "joint": "7%",
+        "note": "Rebate of 1% for women in select areas"
+      },
+      "registration": "1%",
+      "lease_agreement": "2% for up to 5 years",
+      "gift_deed": "₹5,000 (family), 7% (others)",
+      "partnership_deed": "₹500 flat",
+      "power_of_attorney_property": "Varies by district",
+      "affidavit": "₹10"
+    },
+    "Gujarat": {
+      "property_sale": {
+        "rate": "4.9%",
+        "note": "Includes surcharge. Among the lowest in India"
+      },
+      "registration": "1%",
+      "lease_agreement": "1% for 1-5 years",
+      "gift_deed": "4.9%",
+      "partnership_deed": "₹500 flat",
+      "power_of_attorney_property": "₹500 (SPA), 4.9% (GPA)",
+      "affidavit": "₹20"
+    },
+    "Rajasthan": {
+      "property_sale": {
+        "male": "6%",
+        "female": "5%",
+        "note": "1% DLC surcharge in urban areas"
+      },
+      "registration": "1%",
+      "lease_agreement": "1% for up to 5 years",
+      "gift_deed": "2.5% (family), 6% (others)",
+      "partnership_deed": "₹500 flat",
+      "power_of_attorney_property": "Varies",
+      "affidavit": "₹10"
+    },
+    "West_Bengal": {
+      "property_sale": {
+        "rate_up_to_1cr": "5%",
+        "rate_above_1cr": "6%",
+        "rate_above_40L_kolkata": "7%",
+        "note": "Additional 2% in Kolkata"
+      },
+      "registration": "1%",
+      "lease_agreement": "0.25% for up to 1 year",
+      "gift_deed": "5-7% depending on value",
+      "partnership_deed": "₹500 flat",
+      "power_of_attorney_property": "₹10,000 (SPA), 5% (GPA)",
+      "affidavit": "₹10"
+    },
+    "Telangana": {
+      "property_sale": {
+        "rate": "6%",
+        "note": "Transfer duty 1.5% additional"
+      },
+      "registration": "0.5%",
+      "lease_agreement": "0.4% for up to 5 years",
+      "gift_deed": "Based on type",
+      "partnership_deed": "₹500 flat",
+      "power_of_attorney_property": "5% of market value",
+      "affidavit": "₹20"
+    },
+    "Haryana": {
+      "property_sale": {
+        "male": "7%",
+        "female": "5%",
+        "note": "Rebate of 2% for women in select areas"
+      },
+      "registration": "1-2% depending on area",
+      "lease_agreement": "1.5% for 1-5 years",
+      "gift_deed": "₹15,000 (family), 7% (others)",
+      "partnership_deed": "₹500 flat",
+      "power_of_attorney_property": "Varies by collector rate",
+      "affidavit": "₹10"
+    }
+  },
+  "general_rules": {
+    "calculation_basis": "Stamp duty calculated on market value or consideration, whichever is higher",
+    "circle_rates": "Government notified minimum rates (circle rates / guideline value / DLC rates)",
+    "e_stamping": "Available in most states via SHCIL (Stock Holding Corporation of India)",
+    "penalty_for_non_stamping": "10x the deficit stamp duty (Section 35, Indian Stamp Act 1899)",
+    "refund": "Generally no refund of stamp duty once paid",
+    "exemptions": [
+      "Transfer between holding and subsidiary company (conditions apply)",
+      "Amalgamation/demerger (specific exemptions vary by state)",
+      "Gifts to specific family members (some states)",
+      "Agricultural land (exemption varies by state)"
+    ]
+  },
+  "important_sections": {
+    "Indian_Stamp_Act_1899": [
+      "Section 3: Instruments chargeable with duty",
+      "Section 17: Various instruments and applicable duties",
+      "Section 35: Penalty for insufficient stamping",
+      "Section 47A: Investigation of undervalued instruments",
+      "Section 54: Adjudication of stamp duty"
+    ],
+    "Registration_Act_1908": [
+      "Section 17: Compulsory registration (immovable property > ₹100)",
+      "Section 18: Optional registration",
+      "Section 23: Time limit for registration (4 months from execution, extendable by 4 months with penalty)",
+      "Section 49: Effect of non-registration"
+    ]
+  }
+}
