@@ -25,8 +25,20 @@ export default function ChatLayout() {
   const [conversations, setConversations] = useState<Conversation[]>([]);
   const [activeConversationId, setActiveConversationId] = useState<string | null>(null);
   const [mode, setMode] = useState<Mode>('general');
-  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const mql = window.matchMedia('(max-width: 768px)');
+    const onChange = (e: MediaQueryListEvent | MediaQueryList) => {
+      setIsMobile(e.matches);
+      if (!e.matches) setSidebarOpen(true); // auto-open on desktop
+    };
+    onChange(mql);
+    mql.addEventListener('change', onChange);
+    return () => mql.removeEventListener('change', onChange);
+  }, []);
 
   useEffect(() => {
     loadConversations();
@@ -51,6 +63,7 @@ export default function ChatLayout() {
     if (convo) {
       setMode(convo.mode as Mode);
     }
+    if (isMobile) setSidebarOpen(false);
   }
 
   async function handleDeleteConversation(id: string) {
@@ -79,16 +92,26 @@ export default function ChatLayout() {
 
   return (
     <div className="flex h-screen bg-slate-50">
-      {/* Sidebar */}
+      {/* Mobile Backdrop */}
+      {isMobile && sidebarOpen && (
+        <div
+          className="fixed inset-0 bg-black/40 z-20"
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
+
+      {/* Sidebar — overlay on mobile, inline on desktop */}
       <div
-        className={`${
-          sidebarOpen ? 'w-72' : 'w-0'
-        } transition-all duration-300 overflow-hidden`}
+        className={`
+          ${isMobile ? 'fixed inset-y-0 left-0 z-30' : 'relative'}
+          ${sidebarOpen ? 'w-72' : 'w-0'}
+          transition-all duration-300 overflow-hidden
+        `}
       >
         <Sidebar
           conversations={conversations}
           activeId={activeConversationId}
-          onNewChat={handleNewChat}
+          onNewChat={() => { handleNewChat(); if (isMobile) setSidebarOpen(false); }}
           onSelect={handleSelectConversation}
           onDelete={handleDeleteConversation}
         />
@@ -97,21 +120,21 @@ export default function ChatLayout() {
       {/* Main Content */}
       <div className="flex-1 flex flex-col min-w-0">
         {/* Header */}
-        <header className="flex items-center justify-between px-4 py-3 border-b border-slate-200 bg-white">
-          <div className="flex items-center gap-3">
+        <header className="flex items-center justify-between px-3 py-2.5 sm:px-4 sm:py-3 border-b border-slate-200 bg-white gap-2">
+          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
             <button
               onClick={() => setSidebarOpen(!sidebarOpen)}
               className="p-2 hover:bg-slate-100 rounded-lg transition"
             >
-              {sidebarOpen ? <X size={20} /> : <Menu size={20} />}
+              {sidebarOpen && !isMobile ? <X size={20} /> : <Menu size={20} />}
             </button>
-            <h1 className="text-lg font-bold text-slate-800">
+            <h1 className="text-base sm:text-lg font-bold text-slate-800 hidden sm:block">
               FinLex AI
             </h1>
           </div>
 
-          {/* Mode Switcher */}
-          <div className="flex items-center gap-1 bg-slate-100 rounded-lg p-1">
+          {/* Mode Switcher — icon-only on mobile */}
+          <div className="flex items-center gap-0.5 sm:gap-1 bg-slate-100 rounded-lg p-0.5 sm:p-1">
             {(Object.entries(MODE_CONFIG) as [Mode, typeof MODE_CONFIG.general][]).map(
               ([key, config]) => {
                 const Icon = config.icon;
@@ -119,14 +142,15 @@ export default function ChatLayout() {
                   <button
                     key={key}
                     onClick={() => setMode(key)}
-                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm font-medium transition ${
+                    className={`flex items-center gap-1.5 px-2 py-1.5 sm:px-3 rounded-md text-sm font-medium transition ${
                       mode === key
                         ? 'bg-white text-slate-800 shadow-sm'
                         : 'text-slate-500 hover:text-slate-700'
                     }`}
+                    title={config.label}
                   >
                     <Icon size={16} />
-                    {config.label}
+                    <span className="hidden sm:inline">{config.label}</span>
                   </button>
                 );
               }

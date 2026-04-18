@@ -22,28 +22,28 @@ export default function MessageBubble({ message, onRetry }: MessageBubbleProps) 
 
   return (
     <div
-      className={`flex items-start gap-3 message-enter ${
+      className={`flex items-start gap-2 sm:gap-3 message-enter ${
         isUser ? 'flex-row-reverse' : ''
       }`}
     >
       {/* Avatar */}
       <div
-        className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${
+        className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center shrink-0 ${
           isUser
             ? 'bg-primary-100'
             : 'bg-accent-100'
         }`}
       >
         {isUser ? (
-          <User className="text-primary-600" size={16} />
+          <User className="text-primary-600" size={14} />
         ) : (
-          <Scale className="text-accent-600" size={16} />
+          <Scale className="text-accent-600" size={14} />
         )}
       </div>
 
       {/* Message Content */}
       <div
-        className={`max-w-[80%] rounded-2xl px-4 py-3 ${
+        className={`max-w-[88%] sm:max-w-[80%] rounded-2xl px-3 py-2.5 sm:px-4 sm:py-3 ${
           isUser
             ? 'bg-primary-600 text-white rounded-tr-sm'
             : isError

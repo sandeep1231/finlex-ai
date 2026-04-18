@@ -18,7 +18,7 @@ function LandingPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-slate-100">
       {/* Header */}
-      <header className="flex items-center justify-between px-6 py-4 max-w-6xl mx-auto">
+      <header className="flex items-center justify-between px-4 sm:px-6 py-4 max-w-6xl mx-auto">
         <div className="flex items-center gap-2">
           <Scale className="text-primary-600" size={28} />
           <span className="text-xl font-bold text-slate-800">FinLex AI</span>
@@ -31,23 +31,23 @@ function LandingPage() {
       </header>
 
       {/* Hero */}
-      <main className="max-w-6xl mx-auto px-6 pt-16 pb-20">
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 bg-primary-100 text-primary-700 px-4 py-1.5 rounded-full text-sm font-medium mb-6">
+      <main className="max-w-6xl mx-auto px-4 sm:px-6 pt-10 sm:pt-16 pb-12 sm:pb-20">
+        <div className="text-center mb-10 sm:mb-16">
+          <div className="inline-flex items-center gap-2 bg-primary-100 text-primary-700 px-4 py-1.5 rounded-full text-sm font-medium mb-4 sm:mb-6">
             <IndianRupee size={14} />
             Built for Indian Professionals
           </div>
-          <h1 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4 leading-tight">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-slate-900 mb-4 leading-tight">
             AI Assistant for<br />
             <span className="text-primary-600">Accounting</span> &{' '}
             <span className="text-amber-600">Law</span>
           </h1>
-          <p className="text-lg text-slate-600 max-w-2xl mx-auto mb-8">
+          <p className="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto mb-6 sm:mb-8 px-2">
             Calculate income tax, draft legal notices, compute GST, compare tax regimes,
             and get instant answers on Indian tax and legal compliance — all powered by AI.
           </p>
           <SignInButton mode="modal">
-            <button className="inline-flex items-center gap-2 px-8 py-3 bg-primary-600 text-white rounded-xl hover:bg-primary-700 transition font-semibold text-base shadow-lg shadow-primary-200">
+            <button className="inline-flex items-center gap-2 px-6 sm:px-8 py-3 bg-primary-600 text-white rounded-xl hover:bg-primary-700 transition font-semibold text-base shadow-lg shadow-primary-200">
               Get Started Free
               <ArrowRight size={18} />
             </button>
@@ -55,7 +55,7 @@ function LandingPage() {
         </div>
 
         {/* Features Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-10 sm:mb-16">
           {[
             {
               icon: Calculator,
@@ -108,15 +108,15 @@ function LandingPage() {
         </div>
 
         {/* CTA */}
-        <div className="text-center bg-white rounded-2xl p-10 border border-slate-200 shadow-sm">
-          <h2 className="text-2xl font-bold text-slate-800 mb-3">
+        <div className="text-center bg-white rounded-2xl p-6 sm:p-10 border border-slate-200 shadow-sm">
+          <h2 className="text-xl sm:text-2xl font-bold text-slate-800 mb-3">
             Ready to streamline your practice?
           </h2>
-          <p className="text-slate-500 mb-6">
+          <p className="text-sm sm:text-base text-slate-500 mb-6">
             Join CAs, lawyers, and tax professionals who use FinLex AI daily.
           </p>
           <SignInButton mode="modal">
-            <button className="inline-flex items-center gap-2 px-8 py-3 bg-primary-600 text-white rounded-xl hover:bg-primary-700 transition font-semibold shadow-lg shadow-primary-200">
+            <button className="inline-flex items-center gap-2 px-6 sm:px-8 py-3 bg-primary-600 text-white rounded-xl hover:bg-primary-700 transition font-semibold shadow-lg shadow-primary-200">
               Start Using FinLex AI
               <ArrowRight size={18} />
             </button>

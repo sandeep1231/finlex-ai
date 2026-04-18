@@ -44,9 +44,9 @@ body {
 .markdown-content ul { @apply list-disc pl-6 my-2; }
 .markdown-content ol { @apply list-decimal pl-6 my-2; }
 .markdown-content li { @apply my-0.5; }
-.markdown-content table { @apply w-full border-collapse my-3 text-sm; }
-.markdown-content th { @apply bg-slate-100 border border-slate-200 px-3 py-2 text-left font-semibold; }
-.markdown-content td { @apply border border-slate-200 px-3 py-2; }
+.markdown-content table { @apply w-full border-collapse my-3 text-sm; overflow-x: auto; display: block; }
+.markdown-content th { @apply bg-slate-100 border border-slate-200 px-2 py-1.5 sm:px-3 sm:py-2 text-left font-semibold text-xs sm:text-sm whitespace-nowrap; }
+.markdown-content td { @apply border border-slate-200 px-2 py-1.5 sm:px-3 sm:py-2 text-xs sm:text-sm; }
 .markdown-content code { @apply bg-slate-100 px-1.5 py-0.5 rounded text-sm font-mono; }
 .markdown-content pre { @apply bg-slate-900 text-slate-100 p-4 rounded-lg my-3 overflow-x-auto; }
 .markdown-content pre code { @apply bg-transparent px-0 py-0; }

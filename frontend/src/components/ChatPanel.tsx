@@ -141,34 +141,34 @@ export default function ChatPanel({
   return (
     <div className="flex-1 flex flex-col min-h-0">
       {/* Messages Area */}
-      <div className="flex-1 overflow-y-auto px-4 py-6">
+      <div className="flex-1 overflow-y-auto px-3 py-4 sm:px-4 sm:py-6">
         {messages.length === 0 ? (
-          <div className="max-w-2xl mx-auto mt-12">
-            <div className="text-center mb-8">
-              <div className="flex justify-center mb-4">
-                <div className="w-16 h-16 bg-primary-100 rounded-2xl flex items-center justify-center">
-                  <Sparkles className="text-primary-600" size={32} />
+          <div className="max-w-2xl mx-auto mt-6 sm:mt-12">
+            <div className="text-center mb-6 sm:mb-8">
+              <div className="flex justify-center mb-3 sm:mb-4">
+                <div className="w-12 h-12 sm:w-16 sm:h-16 bg-primary-100 rounded-2xl flex items-center justify-center">
+                  <Sparkles className="text-primary-600" size={28} />
                 </div>
               </div>
-              <h2 className="text-2xl font-bold text-slate-800 mb-2">
+              <h2 className="text-xl sm:text-2xl font-bold text-slate-800 mb-2">
                 What can I help you with?
               </h2>
-              <p className="text-slate-500">
-                Choose a quick action below or type your question.
+              <p className="text-sm sm:text-base text-slate-500">
+                Choose a quick action or type your question.
               </p>
             </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-3">
               {actions.map((action, idx) => {
                 const Icon = action.icon;
                 return (
                   <button
                     key={idx}
                     onClick={() => handleSend(action.prompt)}
-                    className={`flex flex-col items-center gap-2 p-4 border rounded-xl hover:shadow-md transition text-center ${action.color}`}
+                    className={`flex flex-col items-center gap-1.5 sm:gap-2 p-3 sm:p-4 border rounded-xl hover:shadow-md transition text-center ${action.color}`}
                   >
-                    <Icon size={24} />
-                    <span className="text-sm font-medium">{action.label}</span>
+                    <Icon size={22} />
+                    <span className="text-xs sm:text-sm font-medium">{action.label}</span>
                   </button>
                 );
               })}
@@ -216,15 +216,15 @@ export default function ChatPanel({
       </div>
 
       {/* Input Area */}
-      <div className="border-t border-slate-200 bg-white px-4 py-3">
+      <div className="border-t border-slate-200 bg-white px-3 py-2 sm:px-4 sm:py-3 pb-[env(safe-area-inset-bottom,8px)]">
         <div className="max-w-3xl mx-auto">
-          <div className="flex items-end gap-2 bg-slate-50 border border-slate-200 rounded-xl px-4 py-2 focus-within:border-primary-400 focus-within:ring-2 focus-within:ring-primary-100 transition">
+          <div className="flex items-end gap-2 bg-slate-50 border border-slate-200 rounded-xl px-3 sm:px-4 py-2 focus-within:border-primary-400 focus-within:ring-2 focus-within:ring-primary-100 transition">
             <textarea
               ref={inputRef}
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={handleKeyDown}
-              placeholder={`Ask about ${mode === 'accounting' ? 'tax, GST, TDS...' : mode === 'legal' ? 'contracts, compliance, legal drafting...' : 'accounting or legal queries...'}`}
+              placeholder={`Ask about ${mode === 'accounting' ? 'tax, GST, TDS...' : mode === 'legal' ? 'contracts, compliance...' : 'accounting or legal...'}`}
               className="flex-1 bg-transparent resize-none outline-none text-sm text-slate-800 placeholder-slate-400 max-h-32"
               rows={1}
               disabled={isLoading}
@@ -241,7 +241,7 @@ export default function ChatPanel({
               )}
             </button>
           </div>
-          <p className="text-xs text-slate-400 text-center mt-2">
+          <p className="text-xs text-slate-400 text-center mt-1.5 sm:mt-2 hidden sm:block">
             AI-generated responses. Verify with a qualified professional before acting on this information.
           </p>
         </div>
