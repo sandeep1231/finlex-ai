@@ -20,9 +20,63 @@ async def _init_rag_background(app: FastAPI):
         await rag_service.initialize()
         app.state.rag_service = rag_service
         logger.info("RAG service initialized successfully")
+
+        # Re-index uploaded documents that are still on disk
+        await _reindex_uploaded_documents(rag_service)
     except Exception as e:
         logger.warning(f"RAG service initialization failed: {e}. App will run without RAG context.")
         app.state.rag_service = None
+
+
+async def _reindex_uploaded_documents(rag_service):
+    """Re-index user-uploaded documents from disk into ChromaDB on startup.
+
+    On Render (ephemeral filesystem), ChromaDB data is wiped on redeploy.
+    This checks PostgreSQL for indexed documents and re-indexes any whose
+    files still exist on disk.
+    """
+    import os
+    from sqlalchemy import select, update
+    from app.database import AsyncSessionLocal
+    from app.models.document import Document
+
+    try:
+        async with AsyncSessionLocal() as db:
+            result = await db.execute(
+                select(Document).where(Document.is_indexed == True)  # noqa: E712
+            )
+            documents = result.scalars().all()
+
+            if not documents:
+                return
+
+            reindexed = 0
+            missing = 0
+            for doc in documents:
+                if doc.file_path and os.path.exists(doc.file_path):
+                    try:
+                        await rag_service.add_document(doc.file_path, doc.category or "general")
+                        reindexed += 1
+                    except Exception as e:
+                        logger.warning(f"Failed to re-index {doc.filename}: {e}")
+                else:
+                    # File doesn't exist on disk (Render wiped it)
+                    # Mark as not indexed so UI reflects reality
+                    await db.execute(
+                        update(Document)
+                        .where(Document.id == doc.id)
+                        .values(is_indexed=False)
+                    )
+                    missing += 1
+
+            if missing > 0:
+                await db.commit()
+
+            logger.info(
+                f"Document re-index complete: {reindexed} re-indexed, {missing} files missing"
+            )
+    except Exception as e:
+        logger.warning(f"Document re-indexing failed: {e}")
 
 
 @asynccontextmanager
