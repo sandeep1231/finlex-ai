@@ -1,5 +1,5 @@
 import uuid
-import time
+import asyncio
 
 from sqlalchemy import select, func
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -40,8 +40,17 @@ class ChatService:
         else:
             context = "No RAG context available."
 
-        # Get conversation history
+        # Get conversation history BEFORE saving current message
         chat_history = await self._get_chat_history(conversation.id)
+
+        # Save user message immediately so concurrent requests see it
+        user_message = Message(
+            conversation_id=conversation.id,
+            role="user",
+            content=request.message,
+        )
+        self.db.add(user_message)
+        await self.db.flush()
 
         # Run agent with retry for transient errors (503, 429)
         agent = create_agent(request.mode)
@@ -70,7 +79,7 @@ class ChatService:
                 error_msg = str(e)
                 is_retryable = "503" in error_msg or "UNAVAILABLE" in error_msg or "429" in error_msg or "RESOURCE_EXHAUSTED" in error_msg
                 if is_retryable and attempt < max_retries - 1:
-                    time.sleep(2 ** attempt * 5)  # 5s, 10s, 20s
+                    await asyncio.sleep(2 ** attempt * 5)  # 5s, 10s, 20s
                     continue
                 if "insufficient_quota" in error_msg or "429" in error_msg or "RESOURCE_EXHAUSTED" in error_msg:
                     ai_response = "⚠️ The AI service is temporarily rate-limited. Please wait a moment and try again. The calculators (tax, GST, TDS) still work without the AI service."
@@ -90,12 +99,7 @@ class ChatService:
                 tool_used = step[0].tool
                 break
 
-        # Save messages
-        user_message = Message(
-            conversation_id=conversation.id,
-            role="user",
-            content=request.message,
-        )
+        # Save assistant response
         assistant_message = Message(
             conversation_id=conversation.id,
             role="assistant",
@@ -104,7 +108,6 @@ class ChatService:
             tool_used=tool_used,
         )
 
-        self.db.add(user_message)
         self.db.add(assistant_message)
 
         # Update query count

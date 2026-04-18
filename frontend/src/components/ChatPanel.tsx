@@ -60,15 +60,18 @@ export default function ChatPanel({
   const [currentConvoId, setCurrentConvoId] = useState<string | null>(conversationId);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
+  const justCreatedIdRef = useRef<string | null>(null);
 
   // Load conversation messages when conversation changes
   useEffect(() => {
     setCurrentConvoId(conversationId);
-    if (conversationId) {
+    if (conversationId && conversationId !== justCreatedIdRef.current) {
+      // Only load from server if this conversation wasn't just created locally
       loadConversation(conversationId);
-    } else {
+    } else if (!conversationId) {
       setMessages([]);
     }
+    justCreatedIdRef.current = null;
   }, [conversationId]);
 
   // Auto-scroll
@@ -115,6 +118,7 @@ export default function ChatPanel({
       // If new conversation, notify parent
       if (!currentConvoId) {
         setCurrentConvoId(response.conversation_id);
+        justCreatedIdRef.current = response.conversation_id;
         onConversationCreated(response.conversation_id, text.slice(0, 100));
       }
     } catch (err: any) {

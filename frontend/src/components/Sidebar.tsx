@@ -153,6 +153,15 @@ export default function Sidebar({
 
       {/* Document Upload Section */}
       <div className="px-3 py-2 border-t border-slate-700">
+        {/* Hidden file input — always rendered so ref is stable */}
+        <input
+          ref={fileInputRef}
+          type="file"
+          accept=".pdf,.docx,.doc,.xlsx,.xls,.csv,.txt"
+          onChange={handleFileUpload}
+          className="hidden"
+        />
+
         <button
           onClick={() => {
             setShowDocs(!showDocs);
@@ -180,13 +189,6 @@ export default function Sidebar({
               </div>
             ))}
 
-            <input
-              ref={fileInputRef}
-              type="file"
-              accept=".pdf,.docx,.doc,.xlsx,.xls,.csv,.txt"
-              onChange={handleFileUpload}
-              className="hidden"
-            />
             <button
               onClick={() => fileInputRef.current?.click()}
               disabled={uploading}
