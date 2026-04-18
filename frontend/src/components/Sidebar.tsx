@@ -73,7 +73,7 @@ export default function Sidebar({
   async function loadDocuments() {
     try {
       const docs = await api.getDocuments();
-      setDocuments(docs);
+      setDocuments(Array.isArray(docs) ? docs : []);
     } catch {
       // ignore
     }

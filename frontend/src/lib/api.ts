@@ -84,8 +84,10 @@ export const api = {
     return res.json();
   },
 
-  getDocuments: () =>
-    apiFetch('/api/v1/documents/'),
+  getDocuments: async () => {
+    const res = await apiFetch('/api/v1/documents/');
+    return res.documents || [];
+  },
 
   deleteDocument: (id: string) =>
     apiFetch(`/api/v1/documents/${id}`, { method: 'DELETE' }),

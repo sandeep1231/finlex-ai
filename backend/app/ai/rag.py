@@ -1,3 +1,4 @@
+import asyncio
 import json
 import os
 from pathlib import Path
@@ -43,11 +44,14 @@ class RAGPipeline:
 
     async def initialize(self):
         """Initialize the vector store and load built-in knowledge base."""
-        self.vectorstore = Chroma(
-            persist_directory=settings.chroma_persist_dir,
-            embedding_function=self.embedding_model,
-            collection_name=settings.chroma_collection_name,
-        )
+        # Chroma constructor + embeddings are blocking I/O; run in thread pool
+        def _init_vectorstore():
+            return Chroma(
+                persist_directory=settings.chroma_persist_dir,
+                embedding_function=self.embedding_model,
+                collection_name=settings.chroma_collection_name,
+            )
+        self.vectorstore = await asyncio.to_thread(_init_vectorstore)
 
         # Load built-in knowledge base if collection is empty
         collection = self.vectorstore._collection
@@ -79,9 +83,9 @@ class RAGPipeline:
         # Split into chunks
         chunks = self.text_splitter.split_documents(documents)
 
-        # Add to vector store
+        # Add to vector store (blocking I/O with embeddings API)
         if chunks:
-            self.vectorstore.add_documents(chunks)
+            await asyncio.to_thread(self.vectorstore.add_documents, chunks)
 
     def _json_to_text(self, data: dict, name: str) -> str:
         """Convert a JSON knowledge base file to readable text for embedding."""
@@ -124,10 +128,10 @@ class RAGPipeline:
             doc.metadata["type"] = "user_upload"
             doc.metadata["source"] = os.path.basename(file_path)
 
-        # Split and store
+        # Split and store (blocking I/O with embeddings API)
         chunks = self.text_splitter.split_documents(documents)
         if chunks:
-            self.vectorstore.add_documents(chunks)
+            await asyncio.to_thread(self.vectorstore.add_documents, chunks)
 
         return len(chunks)
 
@@ -137,7 +141,8 @@ class RAGPipeline:
         if category:
             search_kwargs["filter"] = {"category": category}
 
-        results = self.vectorstore.similarity_search_with_relevance_scores(
+        results = await asyncio.to_thread(
+            self.vectorstore.similarity_search_with_relevance_scores,
             query, **search_kwargs
         )
 
@@ -150,6 +155,7 @@ class RAGPipeline:
 
     async def delete_document(self, source_filename: str):
         """Remove all chunks associated with a document."""
-        self.vectorstore._collection.delete(
+        await asyncio.to_thread(
+            self.vectorstore._collection.delete,
             where={"source": source_filename}
         )

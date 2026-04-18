@@ -1,3 +1,5 @@
+import asyncio
+import logging
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -7,21 +9,11 @@ from app.api import auth, chat, documents, calculator, admin
 from app.core.middleware import RateLimitMiddleware
 
 settings = get_settings()
+logger = logging.getLogger(__name__)
 
 
-@asynccontextmanager
-async def lifespan(app: FastAPI):
-    # Startup
-    import logging
-    logger = logging.getLogger(__name__)
-
-    # Create database tables
-    from app.database import engine, Base
-    from app.models import tenant, user, conversation, document  # noqa: F401 - import to register models
-    async with engine.begin() as conn:
-        await conn.run_sync(Base.metadata.create_all)
-    logger.info("Database tables created/verified")
-
+async def _init_rag_background(app: FastAPI):
+    """Initialize RAG service in background so server starts immediately."""
     try:
         from app.services.rag_service import RAGService
         rag_service = RAGService()
@@ -31,8 +23,25 @@ async def lifespan(app: FastAPI):
     except Exception as e:
         logger.warning(f"RAG service initialization failed: {e}. App will run without RAG context.")
         app.state.rag_service = None
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # Startup
+    # Create database tables
+    from app.database import engine, Base
+    from app.models import tenant, user, conversation, document  # noqa: F401 - import to register models
+    async with engine.begin() as conn:
+        await conn.run_sync(Base.metadata.create_all)
+    logger.info("Database tables created/verified")
+
+    # Start RAG initialization in background (non-blocking)
+    app.state.rag_service = None
+    rag_task = asyncio.create_task(_init_rag_background(app))
     yield
-    # Shutdown
+    # Shutdown - cancel RAG init if still running
+    if not rag_task.done():
+        rag_task.cancel()
 
 
 app = FastAPI(
