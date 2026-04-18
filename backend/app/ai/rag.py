@@ -135,10 +135,18 @@ class RAGPipeline:
 
         return len(chunks)
 
-    async def search(self, query: str, k: int = 5, category: str | None = None) -> list[LangchainDocument]:
+    async def search(
+        self,
+        query: str,
+        k: int = 5,
+        category: str | None = None,
+        filter_metadata: dict | None = None,
+    ) -> list[LangchainDocument]:
         """Search the knowledge base for relevant documents."""
         search_kwargs = {"k": k}
-        if category:
+        if filter_metadata:
+            search_kwargs["filter"] = filter_metadata
+        elif category:
             search_kwargs["filter"] = {"category": category}
 
         results = await asyncio.to_thread(

@@ -162,16 +162,21 @@ class ChatService:
             select(Message)
             .where(Message.conversation_id == conversation_id)
             .order_by(Message.created_at.desc())
-            .limit(20)
+            .limit(10)
         )
         messages = result.scalars().all()
 
         history = []
         for msg in reversed(messages):
+            content = msg.content
+            # Truncate long assistant responses in history so they don't
+            # dominate the LLM's attention over the current question
+            if msg.role == "assistant" and len(content) > 800:
+                content = content[:800] + "\n\n[... response truncated in history ...]"
             if msg.role == "user":
-                history.append(HumanMessage(content=msg.content))
+                history.append(HumanMessage(content=content))
             else:
-                history.append(AIMessage(content=msg.content))
+                history.append(AIMessage(content=content))
 
         return history
 
